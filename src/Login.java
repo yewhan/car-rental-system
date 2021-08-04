@@ -42,6 +42,7 @@ public class Login extends JFrame {
 //            placeholder.setVisible(true); //Needs changing
             homescreen.dispose();
             dispose();
+            //Cars.loadCarsAdmin(); //Test method
         }
         else {
             JOptionPane.showMessageDialog(null, "Staff login incorrect. Please try again.");
