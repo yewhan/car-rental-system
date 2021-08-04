@@ -37,7 +37,6 @@ public class Cars {
                     CarList carsList = new CarList(Boolean.parseBoolean($arr[0]), $arr[1],
                             Float.parseFloat($arr[2]), $date);
                     cars.add(carsList);
-                    System.out.println("date test: " + $date);
                 }
             }
             scanner.close();
