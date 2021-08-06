@@ -14,7 +14,7 @@ public class Login extends JFrame {
 
     Login(JFrame homescreen){
 
-        Staff.loadAccounts();
+        AccountsController.loadAccounts();
 
         setContentPane(panelMain);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -28,24 +28,19 @@ public class Login extends JFrame {
             }
         });
 
-        btnBack.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                dispose();
-            }
-        });
+        btnBack.addActionListener(e -> dispose()); //lambda - can be used for all actionlisteners
     }
 
     public void login(JFrame homescreen) {
-        if (Staff.checkAccount(txtUsername.getText(), txtPass.getText())) {
-//            Placeholder placeholder = new Placeholder(); //Needs changing
-//            placeholder.setVisible(true); //Needs changing
+        if (AccountsController.checkLogin(txtUsername.getText(), txtPass.getText())) {
+            Admin admin = new Admin();
+            admin.setVisible(true);
             homescreen.dispose();
             dispose();
             //Cars.loadCarsAdmin(); //Test method
         }
         else {
-            JOptionPane.showMessageDialog(null, "Staff login incorrect. Please try again.");
+            JOptionPane.showMessageDialog(null, "Account credentials incorrect. Please try again.");
         }
     }
 }
