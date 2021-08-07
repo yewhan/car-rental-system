@@ -21,7 +21,7 @@ public class Admin extends JFrame {
     public Admin() {
         setContentPane(panelMain);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        setPreferredSize(new Dimension(750, 500));
+        setPreferredSize(new Dimension(900, 500));
         pack();
         AccountsController.loadCustomers();
         StockController.loadCars();

@@ -118,7 +118,12 @@ public class StockController {
                 $arr[1] = c.getModel();
                 $arr[2] = c.getRegistration();
                 $arr[3] = c.getPrice().toString();
-                $arr[4] = c.getAvailableDate().toString();
+                if (c.getAvailableDate() != null) {
+                    $arr[4] = c.getAvailableDate().toString();
+                }
+                else {
+                    $arr[4] = "";
+                }
                 return $arr;
             }
         }
@@ -143,7 +148,9 @@ public class StockController {
         for (Stock c : carList) {
             if (c.getRegistration().equalsIgnoreCase(carReg)) {
                 c.setPrice(Float.parseFloat(price));
-                c.setAvailableDate(LocalDate.parse(date));
+                if (!(date.isBlank())) {
+                    c.setAvailableDate(LocalDate.parse(date));
+                }
             }
         }
     }

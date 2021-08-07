@@ -62,6 +62,7 @@ public class EditStock extends JFrame {
             StockController.editStock(carReg, txtPrice.getText().trim(), txtDate.getText().trim());
             StockController.saveStock();
             StockController.populateStockGUI(lstStock, true);
+            dispose();
         }
     }
 
