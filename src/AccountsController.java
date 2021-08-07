@@ -1,4 +1,3 @@
-import javax.swing.*;
 import java.io.*;
 import java.util.ArrayList;
 import java.util.List;
@@ -12,7 +11,6 @@ public class AccountsController {
     public static List<CustomerAccounts> customersList;
 
     public static void loadStaff() {
-
         staffList = new ArrayList<StaffAccounts>(); //Store list of accounts for easy access to check against when logging in
         try {
 
@@ -60,8 +58,7 @@ public class AccountsController {
                 customersList.add(customer);
             }
             scanner.close();
-        }
-        catch (FileNotFoundException e) {
+        } catch (FileNotFoundException e) {
             e.printStackTrace();
         }
     }
@@ -131,7 +128,6 @@ public class AccountsController {
     }
 
     public static void saveCustomer() {
-
         try {
             FileWriter fw = new FileWriter(new File($fileCustomerPath));
             BufferedWriter bw = new BufferedWriter(fw);
@@ -140,15 +136,13 @@ public class AccountsController {
                         c.getLicenseNum());
                 if (c.getCarReg() == null) {
                     $temp += "0\n";
-                }
-                else {
+                } else {
                     $temp += String.format("%s\n", c.getCarReg());
                 }
                 bw.write($temp);
             }
             bw.close();
-        }
-        catch (IOException e) {
+        } catch (IOException e) {
             e.printStackTrace();
         }
     }

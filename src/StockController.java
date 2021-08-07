@@ -26,7 +26,7 @@ public class StockController {
                 $arr = scanner.nextLine().split("[:]"); //experiment using .split on : with regex instead of using delimiter
 
                 Stock car = new Stock(Boolean.parseBoolean($arr[0].trim()), $arr[1], $arr[2].trim(),
-                            Float.parseFloat($arr[3].trim()));
+                        Float.parseFloat($arr[3].trim()));
 
                 if ($arr[0].equals("false")) {
 
@@ -44,8 +44,7 @@ public class StockController {
                 if (c.getAvailable()) {
                     System.out.println("available: " + c.getAvailable() + " | model: " + c.getModel()
                             + " | registration: " + c.getRegistration() + " | price/ day: £" + c.getPrice());
-                }
-                else {
+                } else {
                     System.out.println("available: " + c.getAvailable() + " | model: " + c.getModel()
                             + " | registration: " + c.getRegistration() + " | price/ day: £" + c.getPrice()
                             + " | next available: " + c.getAvailableDate());
@@ -70,17 +69,14 @@ public class StockController {
                     $temp += String.format(" | next available: %tF | rented by: %s", c.getAvailableDate(),
                             AccountsController.checkWhoHasCar(c.getRegistration()));
                 }
-            }
-            else if (!accountType) { //check to see if user is customer
+            } else if (!accountType) { //check to see if user is customer
                 if (c.getAvailable()) { //only display available cars to customer
                     $temp = String.format("model: %s | registration: %s | price per day: £%.2f",
                             c.getModel(), c.getRegistration(), c.getPrice());
-                }
-                else {
+                } else {
                     continue; //if car unavailable, go to next object in list
                 }
-            }
-            else {
+            } else {
                 JOptionPane.showMessageDialog(null, "There was an error trying to display vehicles in stock. Please contact system administrator");
             }
 
@@ -99,8 +95,7 @@ public class StockController {
                 $arr[3] = c.getPrice().toString();
                 if (c.getAvailableDate() != null) {
                     $arr[4] = c.getAvailableDate().toString();
-                }
-                else {
+                } else {
                     $arr[4] = "";
                 }
                 return $arr;
@@ -110,8 +105,6 @@ public class StockController {
     }
 
     public static boolean checkReg(String carReg) {
-
-
         for (Stock c : carList) {
             if (c.getRegistration().equalsIgnoreCase(carReg)) {
 
@@ -139,7 +132,6 @@ public class StockController {
     }
 
     public static void saveStock() {
-
         try {
             FileWriter fw = new FileWriter(new File($fileCarsPath));
             BufferedWriter bw = new BufferedWriter(fw);
@@ -147,8 +139,7 @@ public class StockController {
                 String $temp = String.format("%b:%s:%s:%.2f:", c.getAvailable(), c.getModel(), c.getRegistration(), c.getPrice());
                 if (!c.getAvailable()) {
                     $temp += String.format("%tF\n", c.getAvailableDate());
-                }
-                else {
+                } else {
                     $temp += "0\n";
                 }
                 bw.write($temp);

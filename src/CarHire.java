@@ -87,12 +87,10 @@ public class CarHire extends JFrame {
             try {
                 LocalDate date = LocalDate.parse(txtDate.getText().trim());
                 lblTotalPrice.setText(StockController.calculateTotalPrice(txtCarReg.getText().trim(), date));
-            }
-            catch (DateTimeParseException e) {
+            } catch (DateTimeParseException e) {
                 lblTotalPrice.setText("");
             }
-        }
-        else {
+        } else {
             lblTotalPrice.setText("");
         }
     }

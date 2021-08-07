@@ -3,7 +3,6 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.time.LocalDate;
-import java.time.LocalDateTime;
 import java.time.format.DateTimeParseException;
 
 public class EditStock extends JFrame {
@@ -23,12 +22,6 @@ public class EditStock extends JFrame {
         pack();
 
         fillTextFields(carReg);
-//        if (car != null) {
-//            txtPrice.setText(car.getPrice().toString());
-//            if (car.getAvailableDate() != null) {
-//                txtDate.setText(car.getAvailableDate().toString());
-//            }
-//        }
 
         btnBack.addActionListener(new ActionListener() {
             @Override
@@ -46,13 +39,11 @@ public class EditStock extends JFrame {
     }
 
     public void fillTextFields(String carReg) {
-
         car = StockController.getCarDetails(carReg);
         if (car.length > 0) {
             txtPrice.setText(car[3]);
             txtDate.setText(car[4]);
-        }
-        else {
+        } else {
             JOptionPane.showMessageDialog(null, "Error trying to populate text fields.");
         }
     }
@@ -73,25 +64,20 @@ public class EditStock extends JFrame {
 
                 if (car[0].equalsIgnoreCase("true") && txtDate.getText().isBlank()) {
                     return true;
-                }
-                else if (car[0].equalsIgnoreCase("false") && !(txtDate.getText().isBlank())) {
+                } else if (car[0].equalsIgnoreCase("false") && !(txtDate.getText().isBlank())) {
                     try {
                         LocalDate.parse(txtDate.getText().trim());
                         return true;
-                    }
-                    catch (DateTimeParseException e) {
+                    } catch (DateTimeParseException e) {
                         JOptionPane.showMessageDialog(null, "Please format date as yyyy-MM-dd");
                     }
-                }
-                else {
+                } else {
                     JOptionPane.showMessageDialog(null, "Mismatch between availability and date");
                 }
-            }
-            catch (NumberFormatException e) {
+            } catch (NumberFormatException e) {
                 JOptionPane.showMessageDialog(null, "Please enter a valid price");
             }
-        }
-        else {
+        } else {
             JOptionPane.showMessageDialog(null, "Please enter a valid price");
         }
         return false;

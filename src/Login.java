@@ -12,7 +12,7 @@ public class Login extends JFrame {
     private JLabel lblPass;
     private JLabel lblUsername;
 
-    Login(JFrame homescreen){
+    Login(JFrame homescreen) {
 
         AccountsController.loadStaff();
 
@@ -44,9 +44,7 @@ public class Login extends JFrame {
             admin.setVisible(true);
             homescreen.dispose();
             dispose();
-            //Cars.loadCarsAdmin(); //Test method
-        }
-        else {
+        } else {
             JOptionPane.showMessageDialog(null, "Account credentials incorrect. Please try again.");
         }
     }

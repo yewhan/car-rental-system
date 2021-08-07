@@ -35,13 +35,10 @@ public class AddStock extends JFrame {
         });
     }
 
-
-
     public void addCar(JList<String> lstStock) {
         if (txtModel.getText().isBlank() || txtReg.getText().isBlank() || txtPrice.getText().isBlank()) {
             JOptionPane.showMessageDialog(null, "Please ensure all fields are filled out.");
-        }
-        else {
+        } else {
             StockController.addStock(txtModel.getText(), txtReg.getText(), txtPrice.getText());
             StockController.saveStock();
             StockController.populateStockGUI(lstStock, true);

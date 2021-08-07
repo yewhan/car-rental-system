@@ -68,8 +68,7 @@ public class Admin extends JFrame {
         if (StockController.checkReg(txtCarReg.getText().trim())) {
             EditStock editStock = new EditStock(txtCarReg.getText().trim(), lstStock);
             editStock.setVisible(true);
-        }
-        else {
+        } else {
             JOptionPane.showMessageDialog(null, "Registration not found. Please try again.");
         }
     }

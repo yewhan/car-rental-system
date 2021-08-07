@@ -52,7 +52,7 @@ public class CustomerDetails extends JFrame {
     public void openCheckout(String totalCost, String carReg, String returnDate) {
         if (AccountsController.checkIfCustomerExists(txtLicense.getText().trim())) {
 
-            if(!(AccountsController.editCustomer(txtName.getText().trim(), txtAddress.getText().trim(),
+            if (!(AccountsController.editCustomer(txtName.getText().trim(), txtAddress.getText().trim(),
                     txtLicense.getText().trim()))) {
                 JOptionPane.showMessageDialog(null, "There was an error while updating your details");
                 return;
@@ -63,8 +63,7 @@ public class CustomerDetails extends JFrame {
                 JOptionPane.showMessageDialog(null, "Our records indicate you already have a car rented out with us.");
                 return;
             }
-        }
-        else {
+        } else {
             AccountsController.addCustomer(txtName.getText().trim(), txtAddress.getText().trim(),
                     txtLicense.getText().trim());
         }
