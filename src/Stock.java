@@ -16,18 +16,11 @@ public class Stock {
     }
 
     public Stock(Boolean $available, String $model, String $registration, Float $price) {
-        this.available = $available;
-        this.model = $model;
-        this.registration = $registration;
-        this.price = $price;
-//        this($available, $model, $registration, $price, null);
+        this($available, $model, $registration, $price, null);
     }
 
     public Stock(String $model, String $registration, Float $price) {
-        this.model = $model;
-        this.registration = $registration;
-        this.price = $price;
-//        this(null, $model, $registration, $price, null);
+        this(null, $model, $registration, $price, null);
     }
 
 
