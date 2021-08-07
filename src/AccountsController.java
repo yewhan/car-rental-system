@@ -10,8 +10,6 @@ public class AccountsController {
     public static final String $fileCustomerPath = "resources\\customer.txt";
     public static List<StaffAccounts> staffList;
     public static List<CustomerAccounts> customersList;
-    //public static final String $fileCarPath = "resources\\cars.txt";
-    //public static boolean found = false;
 
     public static void loadStaff() {
 

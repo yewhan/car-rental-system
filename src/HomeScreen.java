@@ -16,7 +16,7 @@ public class HomeScreen extends JFrame {
         homescreen.setVisible(true);
     }
 
-    private HomeScreen() {
+    public HomeScreen() {
         setContentPane(panelMain);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setPreferredSize(new Dimension(350, 250));

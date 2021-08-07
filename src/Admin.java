@@ -17,6 +17,7 @@ public class Admin extends JFrame {
     private JLabel lbCarReg;
     private JButton btnAdd;
     private JButton btnRemove;
+    private JButton btnBack;
 
     public Admin() {
         setContentPane(panelMain);
@@ -26,6 +27,13 @@ public class Admin extends JFrame {
         StockController.loadCarsAdmin();
         StockController.populateStockGUI(lstStock, true);
         //Stock.overdueAlert(); // TODO: alert if car return is overdue
+
+        btnBack.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                openHomescreen();
+            }
+        });
 
         btnEdit.addActionListener(new ActionListener() {
             @Override
@@ -47,6 +55,13 @@ public class Admin extends JFrame {
                 remove();
             }
         });
+    }
+
+    public void openHomescreen() {
+        StockController.clearCarList();
+        dispose();
+        HomeScreen homescreen = new HomeScreen();
+        homescreen.setVisible(true);
     }
 
     public void openEditWindow() {

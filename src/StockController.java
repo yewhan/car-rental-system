@@ -197,4 +197,8 @@ public class StockController {
             }
         }
     }
+
+    public static void clearCarList() {
+        carList = new ArrayList<Stock>();
+    }
 }
