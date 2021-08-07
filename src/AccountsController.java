@@ -1,3 +1,4 @@
+import javax.swing.*;
 import java.io.*;
 import java.util.ArrayList;
 import java.util.List;
@@ -55,7 +56,7 @@ public class AccountsController {
 
                 CustomerAccounts customer = new CustomerAccounts($arr[0], $arr[1], $arr[2], $arr[3]);
 
-                if ($arr[4].equals("0")) {
+                if (!($arr[4].equals("0"))) {
                     customer.setCarReg($arr[4]);
                 }
                 customersList.add(customer);
@@ -79,7 +80,7 @@ public class AccountsController {
     public static boolean checkIfCustomerHasCar(String license) {
         for (CustomerAccounts c : customersList) {
             if (c.getLicenseNum().equalsIgnoreCase(license)) {
-                if (!(c.getCarReg().isBlank())) {
+                if (!(c.getCarReg() == null)) {
                     return true;
                 }
             }
@@ -97,5 +98,50 @@ public class AccountsController {
         lName = fullName[fullName.length - 1];
 
         CustomerAccounts customer = new CustomerAccounts(fName, lName, address, license);
+        customersList.add(customer);
+    }
+
+    public static void editCustomer(String name, String address, String license) {
+        String fName;
+        String lName;
+        String[] fullName;
+
+        fullName = name.trim().split("\\s+"); //trim leading/trailing whitespace then regex to split on whitespace
+        fName = fullName[0];
+        lName = fullName[fullName.length - 1];
+
+        for (CustomerAccounts c : customersList) {
+            if (c.getLicenseNum().equalsIgnoreCase(license)) {
+                c.setfName(fName);
+                c.setlName(lName);
+                c.setAddress(address);
+            }
+            else {
+                JOptionPane.showMessageDialog(null, "There was an error while updating your details");
+            }
+        }
+    }
+
+    public static void saveCustomer() {
+
+        try {
+            FileWriter fw = new FileWriter(new File($fileCustomerPath));
+            BufferedWriter bw = new BufferedWriter(fw);
+            for (CustomerAccounts c : customersList) {
+                String $temp = String.format("%s:%s:%s:%s:", c.getfName(), c.getlName(), c.getAddress(),
+                        c.getLicenseNum());
+                if (c.getCarReg() == null) {
+                    $temp += "0\n";
+                }
+                else {
+                    $temp += String.format("%s\n", c.getCarReg());
+                }
+                bw.write($temp);
+            }
+            bw.close();
+        }
+        catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 }

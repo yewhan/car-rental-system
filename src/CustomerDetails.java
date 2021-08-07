@@ -51,7 +51,11 @@ public class CustomerDetails extends JFrame {
 
     public void openCheckout(String totalCost, String carReg, String returnDate) {
         if (AccountsController.checkIfCustomerExists(txtLicense.getText())) {
+
+            AccountsController.editCustomer(txtName.getText(), txtAddress.getText(), txtLicense.getText());
+
             if (AccountsController.checkIfCustomerHasCar(txtLicense.getText())) {
+
                 JOptionPane.showMessageDialog(null, "Our records indicate you already have a car rented out with us.");
                 return;
             }
@@ -59,6 +63,7 @@ public class CustomerDetails extends JFrame {
         else {
             AccountsController.addCustomer(txtName.getText(), txtAddress.getText(), txtLicense.getText());
         }
+        AccountsController.saveCustomer();
         Payment payment = new Payment(frameMain, txtLicense.getText(), totalCost, carReg, returnDate);
         this.setVisible(false);
         payment.setVisible(true);
