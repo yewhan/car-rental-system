@@ -25,12 +25,12 @@ public class StockController {
                 String[] $arr;
                 $arr = scanner.nextLine().split("[:]"); //experiment using .split on : with regex instead of using delimiter
 
-                Stock car = new Stock(Boolean.parseBoolean($arr[0]), $arr[1], $arr[2],
-                            Float.parseFloat($arr[3]));
+                Stock car = new Stock(Boolean.parseBoolean($arr[0].trim()), $arr[1], $arr[2].trim(),
+                            Float.parseFloat($arr[3].trim()));
 
                 if ($arr[0].equals("false")) {
 
-                    LocalDate $date = LocalDate.parse($arr[4]);
+                    LocalDate $date = LocalDate.parse($arr[4].trim());
 
                     car.setAvailableDate($date);
                 }
@@ -88,7 +88,8 @@ public class StockController {
                 $temp = String.format("available: %b | model: %s | registration: %s | price/ day: £%.2f",
                         c.getAvailable(), c.getModel(), c.getRegistration(), c.getPrice());
                 if (!c.getAvailable()) {
-                    $temp += String.format(" | next available: %tF", c.getAvailableDate());
+                    $temp += String.format(" | next available: %tF | rented by: %s", c.getAvailableDate(),
+                            AccountsController.checkWhoHasCar(c.getRegistration()));
                 }
             }
             else if (!accountType) { //check to see if user is customer
@@ -109,46 +110,70 @@ public class StockController {
         }
     }
 
-    public static Stock checkRegistration(String carReg) {
+    public static String[] getCarDetails(String carReg) {
+        String[] $arr = new String[5];
+        for (Stock c : carList) {
+            if (c.getRegistration().equals(carReg)) {
+                $arr[0] = c.getAvailable().toString();
+                $arr[1] = c.getModel();
+                $arr[2] = c.getRegistration();
+                $arr[3] = c.getPrice().toString();
+                $arr[4] = c.getAvailableDate().toString();
+                return $arr;
+            }
+        }
+        return $arr;
+    }
 
-        boolean found = false;
+    public static boolean checkReg(String carReg) {
+
+//        boolean found = false;
 
         for (Stock c : carList) {
             if (c.getRegistration().equalsIgnoreCase(carReg)) {
 
-                found = true;
-                return c;
+//                found = true;
+                return true;
             }
         }
-        return null;
+        return false;
     }
 
-    public static void editStock(Stock car, String available, String model, String reg, String price, String availableDate) {
-
+    public static void editStock(String carReg, String price, String date) {
         for (Stock c : carList) {
-            if (c == car) {
-
-                c.setAvailable(Boolean.parseBoolean(available));
-                c.setModel(model);
-                c.setRegistration(reg);
+            if (c.getRegistration().equalsIgnoreCase(carReg)) {
                 c.setPrice(Float.parseFloat(price));
-
-                if (available.equals("true")) {
-                    c.setAvailableDate(null);
-                }
-                else {
-                    c.setAvailableDate(LocalDate.parse(availableDate));
-                }
+                c.setAvailableDate(LocalDate.parse(date));
             }
         }
     }
 
-    public static void addStock(String available, String model, String reg, String price, String availableDate) {
+//    public static void editStock(Stock car, String available, String model, String reg, String price, String availableDate) { //originally passed car object through
+//
+//        for (Stock c : carList) {
+//            if (c == car) {
+//
+//                c.setAvailable(Boolean.parseBoolean(available));
+//                c.setModel(model);
+//                c.setRegistration(reg);
+//                c.setPrice(Float.parseFloat(price));
+//
+//                if (available.equals("true")) {
+//                    c.setAvailableDate(null);
+//                }
+//                else {
+//                    c.setAvailableDate(LocalDate.parse(availableDate));
+//                }
+//            }
+//        }
+//    }
 
-        Stock newCar = new Stock(Boolean.parseBoolean(available), model, reg, Float.parseFloat(price));
-        if (!newCar.getAvailable()) {
-            newCar.setAvailableDate(LocalDate.parse(availableDate));
-        }
+    public static void addStock(String model, String reg, String price) {
+
+        Stock newCar = new Stock(true, model, reg, Float.parseFloat(price));
+//        if (!newCar.getAvailable()) {
+//            newCar.setAvailableDate(LocalDate.parse(availableDate));
+//        }
         carList.add(newCar);
     }
 
@@ -195,6 +220,10 @@ public class StockController {
         }
         return "";
     }
+
+//    public static boolean checkAvailability(String carReg) {
+//
+//    }
 
     public static void setCarToUnavailable(String carReg, String returnDate) {
         for (Stock c : carList) {

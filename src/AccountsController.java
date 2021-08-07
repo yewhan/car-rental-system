@@ -86,6 +86,17 @@ public class AccountsController {
         return false;
     }
 
+    public static String checkWhoHasCar(String carReg) {
+        for (CustomerAccounts c : customersList) {
+            if (c.getCarReg() != null) {
+                if (c.getCarReg().equalsIgnoreCase(carReg)) {
+                    return String.format("%s %s", c.getfName(), c.getlName());
+                }
+            }
+        }
+        return null;
+    }
+
     public static void addCustomer(String name, String address, String license) {
         String fName;
         String lName;

@@ -9,7 +9,6 @@ public class Admin extends JFrame {
     private JList<String> lstStock;
     private JLabel lblStock;
     private JTextField txtCarReg;
-    private JTextField txtAmount;
     private JPanel panelStock;
     private JPanel panelAdmin;
     private JButton btnEdit;
@@ -24,6 +23,7 @@ public class Admin extends JFrame {
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setPreferredSize(new Dimension(750, 500));
         pack();
+        AccountsController.loadCustomers();
         StockController.loadCars();
         StockController.populateStockGUI(lstStock, true);
         //Stock.overdueAlert(); // TODO: alert if car return is overdue
@@ -65,19 +65,26 @@ public class Admin extends JFrame {
     }
 
     public void openEditWindow() {
-        Stock carToEdit;
-        carToEdit = StockController.checkRegistration(txtCarReg.getText());
-        if (carToEdit != null) {
-            AddEditStock editStock = new AddEditStock(carToEdit, lstStock);
+        if (StockController.checkReg(txtCarReg.getText().trim())) {
+            EditStock editStock = new EditStock(txtCarReg.getText().trim(), lstStock);
             editStock.setVisible(true);
         }
         else {
             JOptionPane.showMessageDialog(null, "Registration not found. Please try again.");
         }
+//        Stock carToEdit;
+//        carToEdit = StockController.returnCar(txtCarReg.getText());
+//        if (carToEdit != null) {
+//            EditStock editStock = new EditStock(carToEdit, lstStock);
+//            editStock.setVisible(true);
+//        }
+//        else {
+//            JOptionPane.showMessageDialog(null, "Registration not found. Please try again.");
+//        }
     }
 
     public void openAddWindow() {
-        AddEditStock addStock = new AddEditStock(lstStock);
+        AddStock addStock = new AddStock(lstStock);
         addStock.setVisible(true);
     }
 
