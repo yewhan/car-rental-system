@@ -18,6 +18,7 @@ public class Customer extends JFrame {
     private JLabel lblDate;
     private JLabel lblPrice;
     private JLabel lblTotalPrice;
+    private JFrame frameMain;
 
     public Customer() {
         setContentPane(panelMain);
@@ -26,13 +27,12 @@ public class Customer extends JFrame {
         pack();
         StockController.loadCarsCustomer();
         StockController.populateStockGUI(lstCars, false);
+        frameMain = this;
 
         btnCheckout.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                if (!(lblTotalPrice.getText().isBlank())) {
-
-                }
+                openCheckout();
             }
         });
 
@@ -78,11 +78,19 @@ public class Customer extends JFrame {
                 lblTotalPrice.setText(StockController.calculateTotalPrice(txtCarReg.getText(), date));
             }
             catch (DateTimeParseException e) {
-                lblTotalPrice.setText("Date Problem");
+                lblTotalPrice.setText("");
             }
         }
         else {
             lblTotalPrice.setText("");
+        }
+    }
+
+    public void openCheckout() {
+        if (!(lblTotalPrice.getText().isBlank())) {
+            Checkout checkout = new Checkout(frameMain, lblTotalPrice.getText(), txtCarReg.getText(), txtDate.getText());
+            checkout.setVisible(true);
+            this.setVisible(false);
         }
     }
 }

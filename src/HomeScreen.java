@@ -40,6 +40,7 @@ public class HomeScreen extends JFrame {
 
     private void openLogin() {
         Login admin = new Login(frameMain);
+        this.setVisible(false);
         admin.setVisible(true);
     }
 

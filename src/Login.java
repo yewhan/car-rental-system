@@ -28,7 +28,14 @@ public class Login extends JFrame {
             }
         });
 
-        btnBack.addActionListener(e -> dispose()); //lambda - can be used for all actionlisteners
+//        btnBack.addActionListener(e -> dispose()); //lambda - can be used for all actionlisteners
+        btnBack.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                dispose();
+                homescreen.setVisible(true);
+            }
+        });
     }
 
     public void login(JFrame homescreen) {
