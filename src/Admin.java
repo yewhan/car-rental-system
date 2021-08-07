@@ -72,15 +72,6 @@ public class Admin extends JFrame {
         else {
             JOptionPane.showMessageDialog(null, "Registration not found. Please try again.");
         }
-//        Stock carToEdit;
-//        carToEdit = StockController.returnCar(txtCarReg.getText());
-//        if (carToEdit != null) {
-//            EditStock editStock = new EditStock(carToEdit, lstStock);
-//            editStock.setVisible(true);
-//        }
-//        else {
-//            JOptionPane.showMessageDialog(null, "Registration not found. Please try again.");
-//        }
     }
 
     public void openAddWindow() {

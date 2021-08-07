@@ -95,30 +95,6 @@ public class EditStock extends JFrame {
             JOptionPane.showMessageDialog(null, "Please enter a valid price");
         }
         return false;
-
-//        if (car[0].equalsIgnoreCase("true")) {
-//            if (!(txtPrice.getText().trim().isBlank()) && txtDate.getText().isBlank()) {
-//                try {
-//                    Float.parseFloat(txtPrice.getText());
-//                    return true;
-//                }
-//                catch (NumberFormatException e) {
-//
-//                }
-//            }
-//        }
-//        else if (car[0].equalsIgnoreCase("false")) {
-//            if (!(txtPrice.getText().trim().isBlank())) {
-//                if (!(txtDate.getText().isBlank())) {
-//                    try {
-//                        LocalDate.parse(txtDate.getText());
-//
-//                    }
-//                    catch (DateTimeParseException e) {
-//
-//                    }
-//                }
-//        }
     }
 
 }

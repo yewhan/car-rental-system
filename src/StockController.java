@@ -39,6 +39,7 @@ public class StockController {
             }
             scanner.close();
 
+            //TODO: REMOVE BELOW WHEN DONE
             for (Stock c : carList) { // Check to see if every object is being read in/ displayed correctly
                 if (c.getAvailable()) {
                     System.out.println("available: " + c.getAvailable() + " | model: " + c.getModel()
@@ -55,28 +56,6 @@ public class StockController {
             e.printStackTrace();
         }
     }
-
-//    public static void loadCars() {
-//        carList = new ArrayList<Stock>();
-//
-//        try {
-//            Scanner scanner = new Scanner(new File($fileCarsPath));
-//
-//            while (scanner.hasNext()) {
-//
-//                String[] $arr;
-//
-//                $arr = scanner.nextLine().split("[:]");
-//                if ($arr[0].equalsIgnoreCase("true")) {
-//                    Stock car = new Stock($arr[1], $arr[2], Float.parseFloat($arr[3]));
-//
-//                    carList.add(car);
-//                }
-//            }
-//        } catch (FileNotFoundException e) {
-//            e.printStackTrace();
-//        }
-//    }
 
     public static void populateStockGUI(JList<String> lstStock, boolean accountType) {
 
@@ -132,12 +111,10 @@ public class StockController {
 
     public static boolean checkReg(String carReg) {
 
-//        boolean found = false;
 
         for (Stock c : carList) {
             if (c.getRegistration().equalsIgnoreCase(carReg)) {
 
-//                found = true;
                 return true;
             }
         }
@@ -155,32 +132,9 @@ public class StockController {
         }
     }
 
-//    public static void editStock(Stock car, String available, String model, String reg, String price, String availableDate) { //originally passed car object through
-//
-//        for (Stock c : carList) {
-//            if (c == car) {
-//
-//                c.setAvailable(Boolean.parseBoolean(available));
-//                c.setModel(model);
-//                c.setRegistration(reg);
-//                c.setPrice(Float.parseFloat(price));
-//
-//                if (available.equals("true")) {
-//                    c.setAvailableDate(null);
-//                }
-//                else {
-//                    c.setAvailableDate(LocalDate.parse(availableDate));
-//                }
-//            }
-//        }
-//    }
-
     public static void addStock(String model, String reg, String price) {
 
         Stock newCar = new Stock(true, model, reg, Float.parseFloat(price));
-//        if (!newCar.getAvailable()) {
-//            newCar.setAvailableDate(LocalDate.parse(availableDate));
-//        }
         carList.add(newCar);
     }
 
