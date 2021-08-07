@@ -4,6 +4,8 @@ import javax.swing.event.DocumentListener;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.FocusEvent;
+import java.awt.event.FocusListener;
 import java.time.LocalDate;
 import java.time.format.DateTimeParseException;
 
@@ -61,6 +63,18 @@ public class CarHire extends JFrame {
             @Override
             public void changedUpdate(DocumentEvent e) {
                 checkInputs();
+            }
+        });
+
+        txtDate.addFocusListener(new FocusListener() {
+            @Override
+            public void focusGained(FocusEvent e) {
+                txtDate.setText("");
+            }
+
+            @Override
+            public void focusLost(FocusEvent e) {
+                txtDate.setText("yyyy-MM-dd");
             }
         });
 

@@ -55,8 +55,8 @@
           </grid>
         </constraints>
         <properties>
-          <text value=""/>
-          <toolTipText value="yyyy-mm-dd"/>
+          <text value="yyyy-MM-dd"/>
+          <toolTipText value="enter date in the format of yyyy-MM-dd"/>
         </properties>
       </component>
       <component id="3f6b7" class="javax.swing.JLabel" binding="lblPrice">

@@ -11,11 +11,6 @@ public class HomeScreen extends JFrame {
     private JButton btnStaff;
     private JFrame frameMain;
 
-    public static void main(String[] args) {
-        HomeScreen homescreen = new HomeScreen();
-        homescreen.setVisible(true);
-    }
-
     public HomeScreen() {
         setContentPane(panelMain);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -36,6 +31,11 @@ public class HomeScreen extends JFrame {
                 openLogin();
             }
         });
+    }
+
+    public static void main(String[] args) {
+        HomeScreen homescreen = new HomeScreen();
+        homescreen.setVisible(true);
     }
 
     private void openLogin() {

@@ -18,7 +18,7 @@ public class EditStock extends JFrame {
     public EditStock(String carReg, JList<String> lstStock) {
         setContentPane(panelMain);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        setPreferredSize(new Dimension(450, 450));
+        setPreferredSize(new Dimension(350, 350));
         pack();
 
         fillTextFields(carReg);
