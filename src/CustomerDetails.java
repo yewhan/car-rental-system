@@ -50,25 +50,27 @@ public class CustomerDetails extends JFrame {
     }
 
     public void openCheckout(String totalCost, String carReg, String returnDate) {
-        if (AccountsController.checkIfCustomerExists(txtLicense.getText().trim())) {
+        String license = txtLicense.getText().trim();
+        String name = txtName.getText().trim();
+        String address = txtAddress.getText().trim();
 
-            if (!(AccountsController.editCustomer(txtName.getText().trim(), txtAddress.getText().trim(),
-                    txtLicense.getText().trim()))) {
+        if (AccountsController.checkIfCustomerExists(license)) {
+
+            if (!(AccountsController.editCustomer(name, address, license))) {
                 JOptionPane.showMessageDialog(null, "There was an error while updating your details");
                 return;
             }
 
-            if (AccountsController.checkIfCustomerHasCar(txtLicense.getText().trim())) {
+            if (AccountsController.checkIfCustomerHasCar(license) != null) {
 
                 JOptionPane.showMessageDialog(null, "Our records indicate you already have a car rented out with us.");
                 return;
             }
         } else {
-            AccountsController.addCustomer(txtName.getText().trim(), txtAddress.getText().trim(),
-                    txtLicense.getText().trim());
+            AccountsController.addCustomer(name, address, license);
         }
         AccountsController.saveCustomer();
-        Checkout checkout = new Checkout(frameMain, txtLicense.getText().trim(), totalCost, carReg, returnDate);
+        Checkout checkout = new Checkout(frameMain, license, totalCost, carReg, returnDate);
         this.setVisible(false);
         checkout.setVisible(true);
     }

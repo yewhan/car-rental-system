@@ -21,6 +21,7 @@ public class CarHire extends JFrame {
     private JLabel lblPrice;
     private JLabel lblTotalPrice;
     private JButton btnBack;
+    private JButton btnReturnCar;
     private JFrame frameMain;
 
     public CarHire() {
@@ -46,6 +47,13 @@ public class CarHire extends JFrame {
             @Override
             public void actionPerformed(ActionEvent e) {
                 openCheckout();
+            }
+        });
+
+        btnReturnCar.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                returnCar();
             }
         });
 
@@ -116,5 +124,10 @@ public class CarHire extends JFrame {
             customerDetails.setVisible(true);
             this.setVisible(false);
         }
+    }
+
+    public void returnCar() {
+        ReturnCar returnCar = new ReturnCar(lstCars);
+        returnCar.setVisible(true);
     }
 }

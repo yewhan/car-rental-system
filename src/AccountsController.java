@@ -72,15 +72,15 @@ public class AccountsController {
         return false;
     }
 
-    public static boolean checkIfCustomerHasCar(String license) {
+    public static String checkIfCustomerHasCar(String license) {
         for (CustomerAccounts c : customersList) {
             if (c.getLicenseNum().equalsIgnoreCase(license)) {
-                if (!(c.getCarReg() == null)) {
-                    return true;
+                if (c.getCarReg() != null) {
+                    return c.getCarReg();
                 }
             }
         }
-        return false;
+        return null;
     }
 
     public static String checkWhoHasCar(String carReg) {
@@ -153,5 +153,17 @@ public class AccountsController {
                 c.setCarReg(carReg);
             }
         }
+    }
+
+    public static void removeCarFromCustomer(String license, String carReg) {
+        for (CustomerAccounts c : customersList) {
+            if (c.getLicenseNum().equalsIgnoreCase(license) && c.getCarReg().equalsIgnoreCase(carReg)) {
+                c.setCarReg(null);
+            }
+        }
+    }
+
+    public static void clearCustomerList() {
+        customersList = new ArrayList<CustomerAccounts>();
     }
 }

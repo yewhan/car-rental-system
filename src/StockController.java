@@ -173,9 +173,25 @@ public class StockController {
         return "";
     }
 
-//    public static boolean checkAvailability(String carReg) {
-//
-//    }
+    public static boolean checkAvailability(String carReg) {
+        for (Stock c : carList) {
+            if (c.getRegistration().equalsIgnoreCase(carReg)) {
+                if (c.getAvailable()) {
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
+
+    public static void setCarToAvailable(String carReg) {
+        for (Stock c : carList) {
+            if (c.getRegistration().equalsIgnoreCase(carReg)) {
+                c.setAvailable(true);
+                c.setAvailableDate(null);
+            }
+        }
+    }
 
     public static void setCarToUnavailable(String carReg, String returnDate) {
         for (Stock c : carList) {
