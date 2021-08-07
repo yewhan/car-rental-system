@@ -12,7 +12,7 @@ public class StockController {
     public static final String $fileCarsPath = "resources\\cars.txt";
     public static List<Stock> carList;
 
-    public static void loadCarsAdmin() {
+    public static void loadCars() {
 
         carList = new ArrayList<Stock>();
         try {
@@ -56,27 +56,27 @@ public class StockController {
         }
     }
 
-    public static void loadCarsCustomer() {
-        carList = new ArrayList<Stock>();
-
-        try {
-            Scanner scanner = new Scanner(new File($fileCarsPath));
-
-            while (scanner.hasNext()) {
-
-                String[] $arr;
-
-                $arr = scanner.nextLine().split("[:]");
-                if ($arr[0].equalsIgnoreCase("true")) {
-                    Stock car = new Stock($arr[1], $arr[2], Float.parseFloat($arr[3]));
-
-                    carList.add(car);
-                }
-            }
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
-        }
-    }
+//    public static void loadCars() {
+//        carList = new ArrayList<Stock>();
+//
+//        try {
+//            Scanner scanner = new Scanner(new File($fileCarsPath));
+//
+//            while (scanner.hasNext()) {
+//
+//                String[] $arr;
+//
+//                $arr = scanner.nextLine().split("[:]");
+//                if ($arr[0].equalsIgnoreCase("true")) {
+//                    Stock car = new Stock($arr[1], $arr[2], Float.parseFloat($arr[3]));
+//
+//                    carList.add(car);
+//                }
+//            }
+//        } catch (FileNotFoundException e) {
+//            e.printStackTrace();
+//        }
+//    }
 
     public static void populateStockGUI(JList<String> lstStock, boolean accountType) {
 
@@ -91,9 +91,14 @@ public class StockController {
                     $temp += String.format(" | next available: %tF", c.getAvailableDate());
                 }
             }
-            else if (!accountType) {
-                $temp = String.format("model: %s | registration: %s | price per day: £%.2f",
-                        c.getModel(), c.getRegistration(), c.getPrice());
+            else if (!accountType) { //check to see if user is customer
+                if (c.getAvailable()) { //only display available cars to customer
+                    $temp = String.format("model: %s | registration: %s | price per day: £%.2f",
+                            c.getModel(), c.getRegistration(), c.getPrice());
+                }
+                else {
+                    continue; //if car unavailable, go to next object in list
+                }
             }
             else {
                 JOptionPane.showMessageDialog(null, "There was an error trying to display vehicles in stock. Please contact system administrator");

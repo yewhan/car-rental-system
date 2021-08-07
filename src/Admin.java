@@ -24,7 +24,7 @@ public class Admin extends JFrame {
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setPreferredSize(new Dimension(750, 500));
         pack();
-        StockController.loadCarsAdmin();
+        StockController.loadCars();
         StockController.populateStockGUI(lstStock, true);
         //Stock.overdueAlert(); // TODO: alert if car return is overdue
 

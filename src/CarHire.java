@@ -26,7 +26,7 @@ public class CarHire extends JFrame {
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setPreferredSize(new Dimension(750, 500));
         pack();
-        StockController.loadCarsCustomer();
+        StockController.loadCars();
         StockController.populateStockGUI(lstCars, false);
         frameMain = this;
 
