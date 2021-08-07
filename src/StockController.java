@@ -20,8 +20,8 @@ public class StockController {
 
             while (scanner.hasNext()) {
 
-                String[] $arr = new String[5];
-                $arr = scanner.next().split("[:]"); //experiment using .split on : with regex instead of using delimiter
+                String[] $arr;
+                $arr = scanner.nextLine().split("[:]"); //experiment using .split on : with regex instead of using delimiter
 
                 Stock car = new Stock(Boolean.parseBoolean($arr[0]), $arr[1], $arr[2],
                             Float.parseFloat($arr[3]));
@@ -54,16 +54,49 @@ public class StockController {
         }
     }
 
-    public static void populateStockGUI(JList lstStock) {
+    public static void loadCarsCustomer() {
+        carList = new ArrayList<Stock>();
 
-        DefaultListModel listModel = new DefaultListModel();
+        try {
+            Scanner scanner = new Scanner(new File($fileCarsPath));
+
+            while (scanner.hasNext()) {
+
+                String[] $arr;
+
+                $arr = scanner.nextLine().split("[:]");
+                if ($arr[0].equalsIgnoreCase("true")) {
+                    Stock car = new Stock($arr[1], $arr[2], Float.parseFloat($arr[3]));
+
+                    carList.add(car);
+                }
+            }
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public static void populateStockGUI(JList<String> lstStock, boolean accountType) {
+
+        DefaultListModel<String> listModel = new DefaultListModel<String>();
+        String $temp = null;
         for (Stock c : carList) {
 
-            String $temp = String.format("available: %b | model: %s | registration: %s | price/ day: £%.2f",
-                       c.getAvailable(), c.getModel(), c.getRegistration(), c.getPrice());
-            if (!c.getAvailable()) {
-                $temp += String.format(" | next available: %tF", c.getAvailableDate());
+            if (accountType) {
+                $temp = String.format("available: %b | model: %s | registration: %s | price/ day: £%.2f",
+                        c.getAvailable(), c.getModel(), c.getRegistration(), c.getPrice());
+                if (!c.getAvailable()) {
+                    $temp += String.format(" | next available: %tF", c.getAvailableDate());
+                }
             }
+            else if (!accountType) {
+                $temp = String.format("model: %s | registration: %s | price per day: £%.2f",
+                        c.getModel(), c.getRegistration(), c.getPrice());
+            }
+            else {
+                JOptionPane.showMessageDialog(null, "There was an error trying to display vehicles in stock. Please contact system administrator");
+            }
+
             listModel.addElement($temp);
             lstStock.setModel(listModel);
         }

@@ -60,7 +60,7 @@ public class AddEditStock extends JFrame {
                 else {
                     editCar(car);
                 }
-                StockController.populateStockGUI(lstStock);
+                StockController.populateStockGUI(lstStock, true);
             }
         });
     }

@@ -1,3 +1,4 @@
 true:corsa:KAF762L:15.55:0
 false:vectra:EBZ5155:18.00:2021-08-25
-true:supra:1234:20.00:0
+false:tesla x:1234:25.55:2021-09-05
+true:supra:123456:14.00:0

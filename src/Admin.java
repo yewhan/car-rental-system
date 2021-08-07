@@ -6,7 +6,7 @@ import java.awt.event.ActionListener;
 public class Admin extends JFrame {
     private JPanel panelMain;
     private JLabel lblMain;
-    private JList lstStock;
+    private JList<String> lstStock;
     private JLabel lblStock;
     private JTextField txtCarReg;
     private JTextField txtAmount;
@@ -24,7 +24,7 @@ public class Admin extends JFrame {
         setPreferredSize(new Dimension(750, 500));
         pack();
         StockController.loadCarsAdmin();
-        StockController.populateStockGUI(lstStock);
+        StockController.populateStockGUI(lstStock, true);
         //Stock.overdueAlert(); // TODO: alert if car return is overdue
 
         btnEdit.addActionListener(new ActionListener() {
@@ -69,6 +69,6 @@ public class Admin extends JFrame {
     public void remove() {
         StockController.removeStock(txtCarReg.getText());
         StockController.saveStock();
-        StockController.populateStockGUI(lstStock);
+        StockController.populateStockGUI(lstStock, true);
     }
 }

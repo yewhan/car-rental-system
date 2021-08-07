@@ -44,6 +44,8 @@ public class HomeScreen extends JFrame {
     }
 
     private void openCustomer() {
-
+        Customer customer = new Customer();
+        customer.setVisible(true);
+        dispose();
     }
 }
