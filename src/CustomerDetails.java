@@ -3,7 +3,7 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-public class Checkout extends JFrame {
+public class CustomerDetails extends JFrame {
     private JPanel panelMain;
     private JTextField txtName;
     private JTextField txtAddress;
@@ -15,7 +15,7 @@ public class Checkout extends JFrame {
     private JLabel lblLicense;
     private JFrame frameMain;
 
-    public Checkout(JFrame customer, String totalCost, String carReg, String returnDate) {
+    public CustomerDetails(JFrame customer, String totalCost, String carReg, String returnDate) {
         AccountsController.loadCustomers();
         setContentPane(panelMain);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);

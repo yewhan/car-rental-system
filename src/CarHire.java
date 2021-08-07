@@ -7,7 +7,7 @@ import java.awt.event.ActionListener;
 import java.time.LocalDate;
 import java.time.format.DateTimeParseException;
 
-public class Customer extends JFrame {
+public class CarHire extends JFrame {
     private JPanel panelMain;
     private JList<String> lstCars;
     private JTextField txtCarReg;
@@ -20,7 +20,7 @@ public class Customer extends JFrame {
     private JLabel lblTotalPrice;
     private JFrame frameMain;
 
-    public Customer() {
+    public CarHire() {
         setContentPane(panelMain);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setPreferredSize(new Dimension(750, 500));
@@ -88,8 +88,8 @@ public class Customer extends JFrame {
 
     public void openCheckout() {
         if (!(lblTotalPrice.getText().isBlank())) {
-            Checkout checkout = new Checkout(frameMain, lblTotalPrice.getText(), txtCarReg.getText(), txtDate.getText());
-            checkout.setVisible(true);
+            CustomerDetails customerDetails = new CustomerDetails(frameMain, lblTotalPrice.getText(), txtCarReg.getText(), txtDate.getText());
+            customerDetails.setVisible(true);
             this.setVisible(false);
         }
     }
