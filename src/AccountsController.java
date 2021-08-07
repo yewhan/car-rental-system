@@ -144,4 +144,12 @@ public class AccountsController {
             e.printStackTrace();
         }
     }
+
+    public static void addCarToCustomer(String license, String carReg) {
+        for (CustomerAccounts c : customersList) {
+            if (c.getLicenseNum().equalsIgnoreCase(license)) {
+                c.setCarReg(carReg);
+            }
+        }
+    }
 }

@@ -64,8 +64,8 @@ public class CustomerDetails extends JFrame {
             AccountsController.addCustomer(txtName.getText(), txtAddress.getText(), txtLicense.getText());
         }
         AccountsController.saveCustomer();
-        Payment payment = new Payment(frameMain, txtLicense.getText(), totalCost, carReg, returnDate);
+        Checkout checkout = new Checkout(frameMain, txtLicense.getText(), totalCost, carReg, returnDate);
         this.setVisible(false);
-        payment.setVisible(true);
+        checkout.setVisible(true);
     }
 }

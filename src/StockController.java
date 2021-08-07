@@ -188,4 +188,13 @@ public class StockController {
         }
         return "";
     }
+
+    public static void addCustomerToCar(String license, String carReg, String returnDate) {
+        for (Stock c : carList) {
+            if (c.getRegistration().equalsIgnoreCase(carReg)) {
+                c.setAvailable(false);
+                c.setAvailableDate(LocalDate.parse(returnDate));
+            }
+        }
+    }
 }
