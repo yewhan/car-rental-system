@@ -1,6 +1,8 @@
 import javax.swing.*;
 import java.io.*;
+import java.text.DecimalFormat;
 import java.time.LocalDate;
+import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
@@ -169,5 +171,21 @@ public class StockController {
 
     public static void removeStock(String reg) {
         carList.removeIf(c -> c.getRegistration().equalsIgnoreCase(reg));
+    }
+
+    public static String calculateTotalPrice(String reg, LocalDate date) {
+        DecimalFormat df = new DecimalFormat("0.00");
+        long difference;
+        float price;
+        for (Stock c : carList) {
+            if (c.getRegistration().equalsIgnoreCase(reg)) {
+                difference = ChronoUnit.DAYS.between(LocalDate.now(), date);
+                price = (c.getPrice() * difference);
+                if (price > 0) {
+                    return Float.toString(Float.parseFloat(df.format(price)));
+                }
+            }
+        }
+        return "";
     }
 }
