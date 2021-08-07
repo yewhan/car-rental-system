@@ -18,6 +18,7 @@ public class CarHire extends JFrame {
     private JLabel lblDate;
     private JLabel lblPrice;
     private JLabel lblTotalPrice;
+    private JButton btnBack;
     private JFrame frameMain;
 
     public CarHire() {
@@ -28,6 +29,16 @@ public class CarHire extends JFrame {
         StockController.loadCarsCustomer();
         StockController.populateStockGUI(lstCars, false);
         frameMain = this;
+
+        btnBack.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                StockController.clearCarList();
+                dispose();
+                HomeScreen homescreen = new HomeScreen();
+                homescreen.setVisible(true);
+            }
+        });
 
         btnCheckout.addActionListener(new ActionListener() {
             @Override
@@ -74,8 +85,8 @@ public class CarHire extends JFrame {
     public void checkInputs() {
         if (!(txtDate.getText().isBlank()) && !(txtCarReg.getText().isBlank())) {
             try {
-                LocalDate date = LocalDate.parse(txtDate.getText());
-                lblTotalPrice.setText(StockController.calculateTotalPrice(txtCarReg.getText(), date));
+                LocalDate date = LocalDate.parse(txtDate.getText().trim());
+                lblTotalPrice.setText(StockController.calculateTotalPrice(txtCarReg.getText().trim(), date));
             }
             catch (DateTimeParseException e) {
                 lblTotalPrice.setText("");
@@ -88,7 +99,8 @@ public class CarHire extends JFrame {
 
     public void openCheckout() {
         if (!(lblTotalPrice.getText().isBlank())) {
-            CustomerDetails customerDetails = new CustomerDetails(frameMain, lblTotalPrice.getText(), txtCarReg.getText(), txtDate.getText());
+            CustomerDetails customerDetails = new CustomerDetails(frameMain, lblTotalPrice.getText().trim(),
+                    txtCarReg.getText().trim(), txtDate.getText().trim());
             customerDetails.setVisible(true);
             this.setVisible(false);
         }

@@ -35,6 +35,8 @@ public class PaymentConfirmation extends JFrame {
 
     public static void printReceipt(String license, String carReg, String returnDate) {
         AccountsController.addCarToCustomer(license, carReg);
+        AccountsController.saveCustomer();
         StockController.setCarToUnavailable(carReg, returnDate);
+        StockController.saveStock();
     }
 }

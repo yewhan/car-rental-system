@@ -31,8 +31,14 @@ public class Checkout extends JFrame {
         btnPay.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-
+                openPaymentConfirmation(frameMain, license, carReg, returnDate);
             }
         });
+    }
+
+    public void openPaymentConfirmation(JFrame frameMain, String license, String carReg, String returnDate) {
+        this.setVisible(false);
+        PaymentConfirmation confirmation = new PaymentConfirmation(frameMain, license, carReg, returnDate);
+        confirmation.setVisible(true);
     }
 }

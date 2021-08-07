@@ -99,7 +99,7 @@ public class AccountsController {
         customersList.add(customer);
     }
 
-    public static void editCustomer(String name, String address, String license) {
+    public static boolean editCustomer(String name, String address, String license) {
         String fName;
         String lName;
         String[] fullName;
@@ -113,11 +113,10 @@ public class AccountsController {
                 c.setfName(fName);
                 c.setlName(lName);
                 c.setAddress(address);
-            }
-            else {
-                JOptionPane.showMessageDialog(null, "There was an error while updating your details");
+                return true;
             }
         }
+        return false;
     }
 
     public static void saveCustomer() {
