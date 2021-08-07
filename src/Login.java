@@ -14,7 +14,7 @@ public class Login extends JFrame {
 
     Login(JFrame homescreen){
 
-        AccountsController.loadAccounts();
+        AccountsController.loadStaff();
 
         setContentPane(panelMain);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);

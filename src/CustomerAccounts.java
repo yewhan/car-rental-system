@@ -4,14 +4,18 @@ public class CustomerAccounts {
     private String lName;
     private String address;
     private String licenseNum;
-    private String refNum;
+    private String carReg;
 
-    public CustomerAccounts(String $fName, String $lName, String $address, String $licenseNum, String $refNum) {
+    public CustomerAccounts(String $fName, String $lName, String $address, String $licenseNum, String $carReg) {
         this.fName = $fName;
         this.lName = $lName;
         this.address = $address;
         this.licenseNum = $licenseNum;
-        this.refNum = $refNum;
+        this.carReg = $carReg;
+    }
+
+    public CustomerAccounts(String $fName, String $lName, String $address, String $licenseNum) {
+        this($fName, $lName, $address, $licenseNum, null);
     }
 
     public String getfName() {
@@ -46,11 +50,11 @@ public class CustomerAccounts {
         this.licenseNum = $licenseNum;
     }
 
-    public String getRefNum() {
-        return refNum;
+    public String getCarReg() {
+        return carReg;
     }
 
-    public void setRefNum(String $refNum) {
-        this.refNum = $refNum;
+    public void setCarReg(String $carReg) {
+        this.carReg = $carReg;
     }
 }
