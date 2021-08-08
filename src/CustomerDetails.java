@@ -51,23 +51,29 @@ public class CustomerDetails extends JFrame {
 
     public void openCheckout(String totalCost, String carReg, String returnDate) {
         String license = txtLicense.getText().toUpperCase().trim();
-        String name = txtName.getText().toUpperCase().trim();
+        String name = txtName.getText().toUpperCase().trim().replaceAll("[^a-zA-Z\\s]", "");
         String address = txtAddress.getText().toUpperCase().trim();
 
-        if (AccountsController.checkIfCustomerExists(license)) {
+        if (((name.split("\\s"))).length > 1) {
 
-            if (!(AccountsController.editCustomer(name, address, license))) {
-                JOptionPane.showMessageDialog(null, "There was an error while updating your details");
-                return;
-            }
+            if (AccountsController.checkIfCustomerExists(license)) {
 
-            if (AccountsController.checkIfCustomerHasCar(license) != null) {
+                if (!(AccountsController.editCustomer(name, address, license))) {
+                    JOptionPane.showMessageDialog(null, "There was an error while updating your details");
+                    return;
+                }
 
-                JOptionPane.showMessageDialog(null, "Our records indicate you already have a car rented out with us.");
-                return;
+                if (AccountsController.checkIfCustomerHasCar(license) != null) {
+
+                    JOptionPane.showMessageDialog(null, "Our records indicate you already have a car rented out with us.");
+                    return;
+                }
+            } else {
+                AccountsController.addCustomer(name, address, license);
             }
         } else {
-            AccountsController.addCustomer(name, address, license);
+            JOptionPane.showMessageDialog(null, "Please ensure you've correctly filled out your name");
+            return;
         }
         AccountsController.saveCustomer();
         Checkout checkout = new Checkout(frameMain, license, totalCost, carReg, returnDate);
