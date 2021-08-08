@@ -130,27 +130,13 @@ public class CarHire extends JFrame {
         }
         btnCheckout.setEnabled(false);
         lblTotalPrice.setText("");
-//        if (!(txtDate.getText().isBlank()) && !(txtCarReg.getText().isBlank())) {
-//            try {
-//                LocalDate date = LocalDate.parse(txtDate.getText().trim());
-//                lblTotalPrice.setText(StockController.calculateTotalPrice(txtCarReg.getText().trim(), date));
-//            } catch (DateTimeParseException e) {
-//                lblTotalPrice.setText("");
-////                btnCheckout.setEnabled(false);
-//            }
-//        } else {
-//            lblTotalPrice.setText("");
-////            btnCheckout.setEnabled(false);
-//        }
     }
 
     public void openCheckout() {
-//        if (!(lblTotalPrice.getText().isBlank())) {
-            CustomerDetails customerDetails = new CustomerDetails(frameMain, lblTotalPrice.getText(),
-                    txtCarReg.getText().trim(), txtDate.getText().trim());
-            customerDetails.setVisible(true);
-            this.setVisible(false);
-//        }
+        CustomerDetails customerDetails = new CustomerDetails(frameMain, lblTotalPrice.getText(),
+                txtCarReg.getText().trim(), txtDate.getText().trim());
+        customerDetails.setVisible(true);
+        this.setVisible(false);
     }
 
     public void returnCar() {
