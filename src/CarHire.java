@@ -2,8 +2,6 @@ import javax.swing.*;
 import javax.swing.event.DocumentEvent;
 import javax.swing.event.DocumentListener;
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.awt.event.FocusEvent;
 import java.awt.event.FocusListener;
 import java.time.LocalDate;
@@ -23,43 +21,47 @@ public class CarHire extends JFrame {
     private JLabel lblTotalPrice;
     private JButton btnBack;
     private JButton btnReturnCar;
-    private JFrame frameMain;
+    private final JFrame frameMain;
 
     public CarHire() {
         setContentPane(panelMain);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setPreferredSize(new Dimension(750, 500));
         pack();
-        btnCheckout.setEnabled(false);
-        StockController.loadCars();
-        StockController.populateStockGUI(lstCars, false);
-        frameMain = this;
+        btnCheckout.setEnabled(false); //disable checkout button until conditions are met
+        StockController.loadCars(); //load a list of cars to be displayed
+        StockController.populateStockGUI(lstCars, false); //update display with only information that customers should see, of available cars
+        frameMain = this; //save window, so it can be returned to via back button later
 
-        btnBack.addActionListener(new ActionListener() {
+        btnBack.addActionListener(e -> { //return to homescreen
+            StockController.clearCarList();
+            dispose();
+            HomeScreen homescreen = new HomeScreen();
+            homescreen.setVisible(true);
+        });
+
+        btnCheckout.addActionListener(e -> openCustomerDetails());
+
+        btnReturnCar.addActionListener(e -> returnCar());
+
+        txtCarReg.getDocument().addDocumentListener(new DocumentListener() { //when txt box is updated check the inputs
             @Override
-            public void actionPerformed(ActionEvent e) {
-                StockController.clearCarList();
-                dispose();
-                HomeScreen homescreen = new HomeScreen();
-                homescreen.setVisible(true);
+            public void insertUpdate(DocumentEvent e) {
+                checkInputs();
+            }
+
+            @Override
+            public void removeUpdate(DocumentEvent e) {
+                checkInputs();
+            }
+
+            @Override
+            public void changedUpdate(DocumentEvent e) {
+                checkInputs();
             }
         });
 
-        btnCheckout.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                openCustomerDetails();
-            }
-        });
-
-        btnReturnCar.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                returnCar();
-            }
-        });
-
-        txtCarReg.getDocument().addDocumentListener(new DocumentListener() {
+        txtDate.getDocument().addDocumentListener(new DocumentListener() { //when txt box is updated check the inputs
             @Override
             public void insertUpdate(DocumentEvent e) {
                 checkInputs();
@@ -79,47 +81,33 @@ public class CarHire extends JFrame {
         txtDate.addFocusListener(new FocusListener() {
             @Override
             public void focusGained(FocusEvent e) {
-                if (txtDate.getText().equals("yyyy-MM-dd")) {
+                if (txtDate.getText().equals("yyyy-MM-dd")) { //when clicked on, if text box contains date format, clear it
                     txtDate.setText("");
                 }
             }
 
             @Override
             public void focusLost(FocusEvent e) {
-                if (txtDate.getText().isEmpty()) {
+                if (txtDate.getText().isEmpty()) { //when clicked off of, if text box is empty, fill it with date format
                     txtDate.setText("yyyy-MM-dd");
                 }
-            }
-        });
-
-        txtDate.getDocument().addDocumentListener(new DocumentListener() {
-            @Override
-            public void insertUpdate(DocumentEvent e) {
-                checkInputs();
-            }
-
-            @Override
-            public void removeUpdate(DocumentEvent e) {
-                checkInputs();
-            }
-
-            @Override
-            public void changedUpdate(DocumentEvent e) {
-                checkInputs();
             }
         });
     }
 
     public void checkInputs() {
-        if (!(txtDate.getText().isBlank()) && !(txtCarReg.getText().isBlank())) {
-            if (StockController.checkReg(txtCarReg.getText().trim())) {
-                if (StockController.checkAvailability(txtCarReg.getText().trim())) {
+        String carReg = txtCarReg.getText().trim();
+        String date = txtDate.getText().trim();
+
+        if (!(date.isBlank()) || !(carReg.isBlank())) { //check to see if either text box is empty
+            if (StockController.checkReg(carReg)) { //check to see if the txtCarReg matches one on database
+                if (StockController.checkAvailability(carReg)) { //check to see if car is available
                     try {
-                        LocalDate date = LocalDate.parse(txtDate.getText().trim());
-                        long difference = ChronoUnit.DAYS.between(LocalDate.now(), date);
-                        if (difference > 0) {
-                            lblTotalPrice.setText(StockController.calculateTotalPrice(txtCarReg.getText().trim(), date));
-                            btnCheckout.setEnabled(true);
+                        LocalDate $date = LocalDate.parse(date); //check to see if txtDate is valid format
+                        long difference = ChronoUnit.DAYS.between(LocalDate.now(), $date);
+                        if (difference > 0) { //make sure the date entered is after today's date
+                            lblTotalPrice.setText(StockController.calculateTotalPrice(carReg, $date)); //display the total cost for hiring the car
+                            btnCheckout.setEnabled(true); //allow the user to enter checkout
                             return;
                         }
                     } catch (DateTimeParseException ignored) {
@@ -128,7 +116,7 @@ public class CarHire extends JFrame {
                 }
             }
         }
-        btnCheckout.setEnabled(false);
+        btnCheckout.setEnabled(false); //if any issues arise, ensure checkout button is disabled and lblTotalPrice is empty
         lblTotalPrice.setText("");
     }
 

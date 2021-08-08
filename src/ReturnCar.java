@@ -38,46 +38,34 @@ public class ReturnCar extends JFrame {
         String carReg = txtCarReg.getText().trim();
         String license = txtLicense.getText().trim();
 
-        if (!(carReg.isEmpty()) && !(license.isEmpty())) {
-            if (StockController.checkReg(carReg)) {
-                if (!(StockController.checkAvailability(carReg))) {
-                    AccountsController.loadCustomers();
-                    if (AccountsController.checkIfCustomerExists(license)) {
-                        String $carReg = AccountsController.checkIfCustomerHasCar(license);
-                        if ($carReg != null && $carReg.equalsIgnoreCase(carReg)) {
-                            StockController.setCarToAvailable(carReg);
-//                            StockController.loadCars();
-                            StockController.saveStock();
-                            StockController.populateStockGUI(lstCars, false);
-                            AccountsController.removeCarFromCustomer(license, carReg);
-//                            AccountsController.loadCustomers();
-                            AccountsController.saveCustomer();
-                            AccountsController.clearCustomerList();
-                            dispose();
-                        }
-                        else {
+        if (!(carReg.isEmpty()) && !(license.isEmpty())) { //check to see if inputs have been filled out
+            if (StockController.checkReg(carReg)) { //check to see if car reg matches one in database
+                if (!(StockController.checkAvailability(carReg))) { //make sure car is unavailable
+                    AccountsController.loadCustomers(); //load a list of customers to check against
+                    if (AccountsController.checkIfCustomerExists(license)) { //make sure customer entry exists in database
+                        String $carReg = AccountsController.checkIfCustomerHasCar(license); //check if customer has outstanding car, if they do add to $carReg
+                        if ($carReg != null && $carReg.equalsIgnoreCase(carReg)) { //if a car reg was returned, and car reg matches input car reg
+                            StockController.setCarToAvailable(carReg); //make car available
+                            StockController.saveStock(); //store car to database
+                            StockController.populateStockGUI(lstCars, false); //reflect changes on customer's GUI
+                            AccountsController.removeCarFromCustomer(license, carReg); //remove the outstanding car from customer's account
+                            AccountsController.saveCustomer(); //store customer to database
+                            AccountsController.clearCustomerList(); //empty list of customers
+                            dispose(); //return to CarHire window
+                        } else {
                             JOptionPane.showMessageDialog(null, "This car has not been rented by this user");
-                            return;
                         }
-                    }
-                    else {
+                    } else {
                         JOptionPane.showMessageDialog(null, "Driving License Number is not on our system");
-                        return;
                     }
-                }
-                else {
+                } else {
                     JOptionPane.showMessageDialog(null, "Car is already available");
-                    return;
                 }
-            }
-            else {
+            } else {
                 JOptionPane.showMessageDialog(null, "Car does not exist");
-                return;
             }
-        }
-        else {
+        } else {
             JOptionPane.showMessageDialog(null, "Please make sure both text fields are filled out");
-            return;
         }
     }
 }

@@ -3,11 +3,11 @@ import java.time.LocalDate;
 
 public class Threading {
 
-    private JTextPane threadingTxtTemp;
-    private String $license;
-    private String $carReg;
+    private final JTextPane threadingTxtTemp;
+    private final String $license;
+    private final String $carReg;
 
-    public Threading (JTextPane receipt, String license, String carReg) {
+    public Threading(JTextPane receipt, String license, String carReg) {
 
         threadingTxtTemp = receipt;
         $license = license;
@@ -22,7 +22,7 @@ public class Threading {
         new SwingWorker<Object, Object>() {
 
             @Override
-            protected Object doInBackground() throws Exception {
+            protected Object doInBackground() throws Exception { //perform GUI interaction below in a background thread
 
                 String[] name = AccountsController.getCustomerName($license);
                 String[] carDetails = StockController.getCarDetails($carReg);
@@ -32,11 +32,11 @@ public class Threading {
                 String receipt = String.format("Led's Car Hire\n%tF\n\n\n%s %s's ITEMS:\nModel: %s\nRegistration: %s\n" +
                                 "£%s per day\nDue to be returned on: %tF\n\nTotal price: £%s",
                         LocalDate.now(), name[0], name[1], carDetails[1], carDetails[2], carDetails[3], returnDate,
-                        totalPrice);
+                        totalPrice); //create receipt text
 
-                threadingTxtTemp.setText(receipt);
+                threadingTxtTemp.setText(receipt); //inject text into receipt
                 return null;
             }
-        }.execute();
+        }.execute(); //execute above
     }
 }

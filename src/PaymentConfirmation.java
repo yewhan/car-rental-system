@@ -1,7 +1,5 @@
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 
 public class PaymentConfirmation extends JFrame {
 
@@ -16,29 +14,23 @@ public class PaymentConfirmation extends JFrame {
         setPreferredSize(new Dimension(400, 200));
         pack();
 
-        btnNo.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                dispose();
-                checkout.setVisible(true);
-            }
+        btnNo.addActionListener(e -> {
+            dispose();
+            checkout.setVisible(true);
         });
 
-        btnYes.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                printReceipt(license, carReg, returnDate);
-                checkout.dispose();
-                dispose();
-            }
+        btnYes.addActionListener(e -> {
+            printReceipt(license, carReg, returnDate);
+            checkout.dispose();
+            dispose();
         });
     }
 
     public static void printReceipt(String license, String carReg, String returnDate) {
-        AccountsController.addCarToCustomer(license, carReg);
-        AccountsController.saveCustomer();
-        StockController.setCarToUnavailable(carReg, returnDate);
-        StockController.saveStock();
+        AccountsController.addCarToCustomer(license, carReg); //add car reg to customer's account
+        AccountsController.saveCustomer(); //update customer database
+        StockController.setCarToUnavailable(carReg, returnDate); //set bought car to unavailable and add new return date
+        StockController.saveStock(); //update car database
 
         Receipt receipt = new Receipt(license, carReg);
         receipt.setVisible(true);

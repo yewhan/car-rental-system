@@ -1,36 +1,24 @@
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 
 
 public class HomeScreen extends JFrame {
+    private final JFrame frameMain;
     private JPanel panelMain;
     private JLabel lblChoice;
     private JButton btnCustomer;
     private JButton btnStaff;
-    private final JFrame frameMain;
 
     public HomeScreen() {
         setContentPane(panelMain);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setPreferredSize(new Dimension(350, 250));
         pack();
-        frameMain = this;
+        frameMain = this; //initialising JFrame for use when pressing back buttons
 
-        btnCustomer.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                openCarHire();
-            }
-        });
+        btnCustomer.addActionListener(e -> openCarHire()); //Lambda expressions used instead of ActionListener interface for readability
 
-        btnStaff.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                openLogin();
-            }
-        });
+        btnStaff.addActionListener(e -> openLogin());
     }
 
     public static void main(String[] args) {
@@ -38,13 +26,13 @@ public class HomeScreen extends JFrame {
         homescreen.setVisible(true);
     }
 
-    private void openLogin() {
+    private void openLogin() { //open login screen
         Login admin = new Login(frameMain);
         this.setVisible(false);
         admin.setVisible(true);
     }
 
-    private void openCarHire() {
+    private void openCarHire() { //open customer's GUI
         CarHire carHire = new CarHire();
         carHire.setVisible(true);
         dispose();

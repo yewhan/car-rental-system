@@ -1,7 +1,5 @@
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 
 public class AddStock extends JFrame {
     private JPanel panelMain;
@@ -20,29 +18,19 @@ public class AddStock extends JFrame {
         setPreferredSize(new Dimension(450, 450));
         pack();
 
-        btnBack.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                dispose();
-            }
-        });
+        btnBack.addActionListener(e -> dispose());
 
-        btnSave.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                addCar(lstStock);
-            }
-        });
+        btnSave.addActionListener(e -> addCar(lstStock));
     }
 
     public void addCar(JList<String> lstStock) {
-        if (txtModel.getText().isBlank() || txtReg.getText().isBlank() || txtPrice.getText().isBlank()) {
+        if (txtModel.getText().isBlank() || txtReg.getText().isBlank() || txtPrice.getText().isBlank()) { //Check to make sure all the fields are correctly filled out
             JOptionPane.showMessageDialog(null, "Please ensure all fields are filled out.");
         } else {
             StockController.addStock(txtModel.getText().toUpperCase(), txtReg.getText().toUpperCase(),
                     txtPrice.getText().toUpperCase());
             StockController.saveStock();
-            StockController.populateStockGUI(lstStock, true);
+            StockController.populateStockGUI(lstStock, true); //add the car to the database, reflect changes in GUI then close window
             dispose();
         }
     }

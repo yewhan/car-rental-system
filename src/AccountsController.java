@@ -43,19 +43,19 @@ public class AccountsController {
     public static void loadCustomers() {
         customersList = new ArrayList<CustomerAccounts>();
         try {
-            Scanner scanner = new Scanner(new File($fileCustomerPath));
+            Scanner scanner = new Scanner(new File($fileCustomerPath)); //read from database of customers
 
-            while (scanner.hasNext()) {
+            while (scanner.hasNext()) { //while there are more entries in database keep adding customer entries to list
 
                 String[] $arr;
-                $arr = scanner.nextLine().split("[:]");
+                $arr = scanner.nextLine().split("[:]"); //customer details are separated by : in txt file, .nextLine() used to ensure entry doesn't stop on whitespace
 
                 CustomerAccounts customer = new CustomerAccounts($arr[0], $arr[1], $arr[2], $arr[3]);
 
-                if (!($arr[4].equals("0"))) {
+                if (!($arr[4].equals("0"))) { //if a customer has an outstanding rented car, add that car to their entry
                     customer.setCarReg($arr[4]);
                 }
-                customersList.add(customer);
+                customersList.add(customer); //add current customer to list
             }
             scanner.close();
         } catch (FileNotFoundException e) {
@@ -65,7 +65,7 @@ public class AccountsController {
 
     public static boolean checkIfCustomerExists(String license) {
         for (CustomerAccounts c : customersList) {
-            if (c.getLicenseNum().equalsIgnoreCase(license)) {
+            if (c.getLicenseNum().equalsIgnoreCase(license)) { //return true if input license matches current customer
                 return true;
             }
         }
@@ -74,8 +74,8 @@ public class AccountsController {
 
     public static String checkIfCustomerHasCar(String license) {
         for (CustomerAccounts c : customersList) {
-            if (c.getLicenseNum().equalsIgnoreCase(license)) {
-                if (c.getCarReg() != null) {
+            if (c.getLicenseNum().equalsIgnoreCase(license)) { //ensure correct customer is being checked
+                if (c.getCarReg() != null) { //if current customer has an outstanding rented car, return car's reg
                     return c.getCarReg();
                 }
             }
@@ -112,12 +112,12 @@ public class AccountsController {
         String lName;
         String[] fullName;
 
-        fullName = name.trim().split("\\s+");
-        fName = fullName[0];
-        lName = fullName[fullName.length - 1];
+        fullName = name.trim().split("\\s+"); //split up name on whitespaces
+        fName = fullName[0]; //set first name
+        lName = fullName[fullName.length - 1]; //set last name
 
         for (CustomerAccounts c : customersList) {
-            if (c.getLicenseNum().equalsIgnoreCase(license)) {
+            if (c.getLicenseNum().equalsIgnoreCase(license)) { //when correct customer is found, update name and address
                 c.setfName(fName);
                 c.setlName(lName);
                 c.setAddress(address);
@@ -157,14 +157,14 @@ public class AccountsController {
 
     public static void removeCarFromCustomer(String license, String carReg) {
         for (CustomerAccounts c : customersList) {
-            if (c.getLicenseNum().equalsIgnoreCase(license) && c.getCarReg().equalsIgnoreCase(carReg)) {
+            if (c.getLicenseNum().equalsIgnoreCase(license) && c.getCarReg().equalsIgnoreCase(carReg)) { //if current customer matches input license and car reg, remove car reg from profile
                 c.setCarReg(null);
             }
         }
     }
 
     public static void clearCustomerList() {
-        customersList = new ArrayList<CustomerAccounts>();
+        customersList = new ArrayList<CustomerAccounts>(); //instantiate new customerList to empty it
     }
 
     public static String[] getCustomerName(String license) {

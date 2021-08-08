@@ -1,7 +1,7 @@
 public class StaffAccounts {
 
-    private String username;
-    private String password;
+    private final String username;
+    private final String password;
     private String passHash;
 
     public StaffAccounts(String $uname, String $hash) {

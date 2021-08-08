@@ -1,6 +1,5 @@
 import javax.swing.*;
 import javax.swing.text.SimpleAttributeSet;
-import javax.swing.text.Style;
 import javax.swing.text.StyleConstants;
 import java.awt.*;
 import java.awt.event.WindowEvent;
@@ -12,14 +11,14 @@ public class Receipt extends JFrame {
 
     public Receipt(String license, String carReg) {
         setContentPane(panelMain);
-        setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
+        setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE); //allow control of Close Operation event
         setPreferredSize(new Dimension(500, 500));
         pack();
         Frame mainFrame = this;
 
         SimpleAttributeSet attributes = new SimpleAttributeSet();
         StyleConstants.setAlignment(attributes, StyleConstants.ALIGN_CENTER);
-        txtReceipt.setParagraphAttributes(attributes, true);
+        txtReceipt.setParagraphAttributes(attributes, true); //align the text of the receipt to the center
 
 
         System.out.println("Thread working on GUI: " + Thread.currentThread().getName());
@@ -32,7 +31,7 @@ public class Receipt extends JFrame {
             }
 
             @Override
-            public void windowClosing(WindowEvent e) {
+            public void windowClosing(WindowEvent e) { //when closing receipt window, open homescreen
                 dispose();
                 HomeScreen homescreen = new HomeScreen();
                 homescreen.setVisible(true);

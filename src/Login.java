@@ -1,7 +1,5 @@
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 
 public class Login extends JFrame {
     private JPanel panelMain;
@@ -14,38 +12,29 @@ public class Login extends JFrame {
 
     Login(JFrame homescreen) {
 
-        AccountsController.loadStaff();
+        AccountsController.loadStaff(); //Initialising list of staff login details to check against
 
         setContentPane(panelMain);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setPreferredSize(new Dimension(350, 250));
         pack();
 
-        btnLogin.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                login(homescreen);
-            }
-        });
+        btnLogin.addActionListener(e -> login(homescreen)); //using lambda for ActionListeners to improve readability
 
-//        btnBack.addActionListener(e -> dispose()); //lambda - can be used for all actionlisteners
-        btnBack.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                dispose();
-                homescreen.setVisible(true);
-            }
+        btnBack.addActionListener(e -> { //return to homescreen
+            dispose();
+            homescreen.setVisible(true);
         });
     }
 
     public void login(JFrame homescreen) {
-        if (AccountsController.checkLogin(txtUsername.getText(), txtPass.getText())) {
+        if (AccountsController.checkLogin(txtUsername.getText(), txtPass.getText())) { //if entered details match account, log in
             Admin admin = new Admin();
             admin.setVisible(true);
             homescreen.dispose();
             dispose();
         } else {
-            JOptionPane.showMessageDialog(null, "Account credentials incorrect. Please try again.");
+            JOptionPane.showMessageDialog(null, "Account credentials incorrect. Please try again."); //else inform user of incorrect details
         }
     }
 }

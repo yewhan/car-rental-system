@@ -1,7 +1,5 @@
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 
 public class Admin extends JFrame {
     private JPanel panelMain;
@@ -23,49 +21,28 @@ public class Admin extends JFrame {
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setPreferredSize(new Dimension(900, 500));
         pack();
-        AccountsController.loadCustomers();
-        StockController.loadCars();
-        StockController.populateStockGUI(lstStock, true);
+        AccountsController.loadCustomers(); //Initialise list of customers to display who has rented what cars
+        StockController.loadCars(); //Initialise list of cars to display
+        StockController.populateStockGUI(lstStock, true); //pass in JList, so it can be worked on, pass in true to tell method to display information meant for staff
         //Stock.overdueAlert(); // TODO: alert if car return is overdue
 
-        btnBack.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                openHomescreen();
-            }
-        });
+        btnBack.addActionListener(e -> openHomescreen());
 
-        btnEdit.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                openEditWindow();
-            }
-        });
+        btnEdit.addActionListener(e -> openEditWindow());
 
-        btnAdd.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                openAddWindow();
-            }
-        });
+        btnAdd.addActionListener(e -> openAddWindow());
 
-        btnRemove.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                remove();
-            }
-        });
+        btnRemove.addActionListener(e -> remove());
     }
 
-    public void openHomescreen() {
-        StockController.clearCarList();
+    public void openHomescreen() { //return to homescreen
         dispose();
         HomeScreen homescreen = new HomeScreen();
         homescreen.setVisible(true);
     }
 
     public void openEditWindow() {
-        if (StockController.checkReg(txtCarReg.getText().trim())) {
+        if (StockController.checkReg(txtCarReg.getText().trim())) { //if input registration plate matches a car in our system, open edit stock window
             EditStock editStock = new EditStock(txtCarReg.getText().trim(), lstStock);
             editStock.setVisible(true);
         } else {
@@ -78,7 +55,7 @@ public class Admin extends JFrame {
         addStock.setVisible(true);
     }
 
-    public void remove() {
+    public void remove() { //Remove car from system, then remove it from database and finally reflect changes on GUI
         StockController.removeStock(txtCarReg.getText());
         StockController.saveStock();
         StockController.populateStockGUI(lstStock, true);

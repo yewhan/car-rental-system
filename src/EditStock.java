@@ -1,7 +1,5 @@
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.time.LocalDate;
 import java.time.format.DateTimeParseException;
 
@@ -23,24 +21,14 @@ public class EditStock extends JFrame {
 
         fillTextFields(carReg);
 
-        btnBack.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                dispose();
-            }
-        });
+        btnBack.addActionListener(e -> dispose());
 
-        btnSave.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                editCar(carReg, lstStock);
-            }
-        });
+        btnSave.addActionListener(e -> editCar(carReg, lstStock));
     }
 
     public void fillTextFields(String carReg) {
-        car = StockController.getCarDetails(carReg);
-        if (car.length > 0) {
+        car = StockController.getCarDetails(carReg); //fill string array with car details
+        if (car.length > 0) { //if the string array has been filled out, populate text fields with car's original details
             txtPrice.setText(car[3]);
             txtDate.setText(car[4]);
         } else {
@@ -49,24 +37,27 @@ public class EditStock extends JFrame {
     }
 
     public void editCar(String carReg, JList<String> lstStock) {
-        if (inputHandling()) {
-            StockController.editStock(carReg, txtPrice.getText().toUpperCase().trim(), txtDate.getText().toUpperCase().trim());
-            StockController.saveStock();
-            StockController.populateStockGUI(lstStock, true);
+        if (inputHandling()) { //check to see if all inputs are valid
+            StockController.editStock(carReg, txtPrice.getText().toUpperCase().trim(), txtDate.getText().toUpperCase().trim()); //pass inputs from txtboxes and designated car's reg
+            StockController.saveStock(); //save changes to database
+            StockController.populateStockGUI(lstStock, true); //reflect changes in GUI
             dispose();
         }
     }
 
     public boolean inputHandling() {
-        if (!(txtPrice.getText().isBlank())) {
-            try {
-                Float.parseFloat(txtPrice.getText().trim());
+        String price = txtPrice.getText().trim();
+        String date = txtDate.getText().trim();
 
-                if (car[0].equalsIgnoreCase("true") && txtDate.getText().isBlank()) {
+        if (!(price.isBlank())) { //check if txtPrice is empty
+            try {
+                Float.parseFloat(price); //check to see if txtPrice is a valid float
+
+                if (car[0].equalsIgnoreCase("true") && date.isBlank()) { //if car being edited is available return true
                     return true;
-                } else if (car[0].equalsIgnoreCase("false") && !(txtDate.getText().isBlank())) {
+                } else if (car[0].equalsIgnoreCase("false") && !(date.isBlank())) { //if car is unavailable, make sure txtDate has an entry
                     try {
-                        LocalDate.parse(txtDate.getText().trim());
+                        LocalDate.parse(date); //if txtDate is valid date, return true
                         return true;
                     } catch (DateTimeParseException e) {
                         JOptionPane.showMessageDialog(null, "Please format date as yyyy-MM-dd");
