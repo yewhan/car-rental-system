@@ -48,7 +48,7 @@ public class CarHire extends JFrame {
         btnCheckout.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                openCheckout();
+                openCustomerDetails();
             }
         });
 
@@ -132,7 +132,7 @@ public class CarHire extends JFrame {
         lblTotalPrice.setText("");
     }
 
-    public void openCheckout() {
+    public void openCustomerDetails() {
         CustomerDetails customerDetails = new CustomerDetails(frameMain, lblTotalPrice.getText(),
                 txtCarReg.getText().trim(), txtDate.getText().trim());
         customerDetails.setVisible(true);
