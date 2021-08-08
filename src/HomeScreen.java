@@ -21,7 +21,7 @@ public class HomeScreen extends JFrame {
         btnCustomer.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                openCustomer();
+                openCarHire();
             }
         });
 
@@ -44,7 +44,7 @@ public class HomeScreen extends JFrame {
         admin.setVisible(true);
     }
 
-    private void openCustomer() {
+    private void openCarHire() {
         CarHire carHire = new CarHire();
         carHire.setVisible(true);
         dispose();
