@@ -5,10 +5,10 @@ import java.util.Scanner;
 
 public class AccountsController {
 
-    public static final String $fileLoginPath = "resources\\admin.txt";
-    public static final String $fileCustomerPath = "resources\\customer.txt";
-    public static List<StaffAccounts> staffList;
-    public static List<CustomerAccounts> customersList;
+    private static final String $fileLoginPath = "resources\\admin.txt";
+    private static final String $fileCustomerPath = "resources\\customer.txt";
+    private static List<StaffAccounts> staffList;
+    private static List<CustomerAccounts> customersList;
 
     public static void loadStaff() {
         staffList = new ArrayList<StaffAccounts>(); //Store list of accounts for easy access to check against when logging in
@@ -99,7 +99,7 @@ public class AccountsController {
         String lName;
         String[] fullName;
 
-        fullName = name.split("\\s+"); //trim leading/trailing whitespace then regex to split on whitespace
+        fullName = name.split("\\s+");
         fName = fullName[0];
         lName = fullName[fullName.length - 1];
 
@@ -112,7 +112,7 @@ public class AccountsController {
         String lName;
         String[] fullName;
 
-        fullName = name.trim().split("\\s+"); //trim leading/trailing whitespace then regex to split on whitespace
+        fullName = name.trim().split("\\s+");
         fName = fullName[0];
         lName = fullName[fullName.length - 1];
 
