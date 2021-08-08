@@ -8,6 +8,7 @@ import java.awt.event.FocusEvent;
 import java.awt.event.FocusListener;
 import java.time.LocalDate;
 import java.time.format.DateTimeParseException;
+import java.time.temporal.ChronoUnit;
 
 public class CarHire extends JFrame {
     private JPanel panelMain;
@@ -115,9 +116,12 @@ public class CarHire extends JFrame {
                 if (StockController.checkAvailability(txtCarReg.getText().trim())) {
                     try {
                         LocalDate date = LocalDate.parse(txtDate.getText().trim());
-                        lblTotalPrice.setText(StockController.calculateTotalPrice(txtCarReg.getText().trim(), date));
-                        btnCheckout.setEnabled(true);
-                        return;
+                        long difference = ChronoUnit.DAYS.between(LocalDate.now(), date);
+                        if (difference > 0) {
+                            lblTotalPrice.setText(StockController.calculateTotalPrice(txtCarReg.getText().trim(), date));
+                            btnCheckout.setEnabled(true);
+                            return;
+                        }
                     } catch (DateTimeParseException ignored) {
 
                     }
