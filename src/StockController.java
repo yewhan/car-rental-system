@@ -10,7 +10,7 @@ import java.util.Scanner;
 public class StockController {
 
     private static final String $fileCarsPath = "resources\\cars.txt";
-    private static List<Stock> carList;
+    public static List<Stock> carList;
 
     public static void loadCars() {
 
