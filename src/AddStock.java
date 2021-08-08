@@ -39,7 +39,8 @@ public class AddStock extends JFrame {
         if (txtModel.getText().isBlank() || txtReg.getText().isBlank() || txtPrice.getText().isBlank()) {
             JOptionPane.showMessageDialog(null, "Please ensure all fields are filled out.");
         } else {
-            StockController.addStock(txtModel.getText(), txtReg.getText(), txtPrice.getText());
+            StockController.addStock(txtModel.getText().toUpperCase(), txtReg.getText().toUpperCase(),
+                    txtPrice.getText().toUpperCase());
             StockController.saveStock();
             StockController.populateStockGUI(lstStock, true);
             dispose();

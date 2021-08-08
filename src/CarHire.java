@@ -29,6 +29,7 @@ public class CarHire extends JFrame {
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setPreferredSize(new Dimension(750, 500));
         pack();
+        btnCheckout.setEnabled(false);
         StockController.loadCars();
         StockController.populateStockGUI(lstCars, false);
         frameMain = this;
@@ -77,12 +78,16 @@ public class CarHire extends JFrame {
         txtDate.addFocusListener(new FocusListener() {
             @Override
             public void focusGained(FocusEvent e) {
-                txtDate.setText("");
+                if (txtDate.getText().equals("yyyy-MM-dd")) {
+                    txtDate.setText("");
+                }
             }
 
             @Override
             public void focusLost(FocusEvent e) {
-                txtDate.setText("yyyy-MM-dd");
+                if (txtDate.getText().isEmpty()) {
+                    txtDate.setText("yyyy-MM-dd");
+                }
             }
         });
 
@@ -106,24 +111,42 @@ public class CarHire extends JFrame {
 
     public void checkInputs() {
         if (!(txtDate.getText().isBlank()) && !(txtCarReg.getText().isBlank())) {
-            try {
-                LocalDate date = LocalDate.parse(txtDate.getText().trim());
-                lblTotalPrice.setText(StockController.calculateTotalPrice(txtCarReg.getText().trim(), date));
-            } catch (DateTimeParseException e) {
-                lblTotalPrice.setText("");
+            if (StockController.checkReg(txtCarReg.getText().trim())) {
+                if (StockController.checkAvailability(txtCarReg.getText().trim())) {
+                    try {
+                        LocalDate date = LocalDate.parse(txtDate.getText().trim());
+                        lblTotalPrice.setText(StockController.calculateTotalPrice(txtCarReg.getText().trim(), date));
+                        btnCheckout.setEnabled(true);
+                        return;
+                    } catch (DateTimeParseException ignored) {
+
+                    }
+                }
             }
-        } else {
-            lblTotalPrice.setText("");
         }
+        btnCheckout.setEnabled(false);
+        lblTotalPrice.setText("");
+//        if (!(txtDate.getText().isBlank()) && !(txtCarReg.getText().isBlank())) {
+//            try {
+//                LocalDate date = LocalDate.parse(txtDate.getText().trim());
+//                lblTotalPrice.setText(StockController.calculateTotalPrice(txtCarReg.getText().trim(), date));
+//            } catch (DateTimeParseException e) {
+//                lblTotalPrice.setText("");
+////                btnCheckout.setEnabled(false);
+//            }
+//        } else {
+//            lblTotalPrice.setText("");
+////            btnCheckout.setEnabled(false);
+//        }
     }
 
     public void openCheckout() {
-        if (!(lblTotalPrice.getText().isBlank())) {
-            CustomerDetails customerDetails = new CustomerDetails(frameMain, lblTotalPrice.getText().trim(),
+//        if (!(lblTotalPrice.getText().isBlank())) {
+            CustomerDetails customerDetails = new CustomerDetails(frameMain, lblTotalPrice.getText(),
                     txtCarReg.getText().trim(), txtDate.getText().trim());
             customerDetails.setVisible(true);
             this.setVisible(false);
-        }
+//        }
     }
 
     public void returnCar() {

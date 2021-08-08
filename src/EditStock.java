@@ -50,7 +50,7 @@ public class EditStock extends JFrame {
 
     public void editCar(String carReg, JList<String> lstStock) {
         if (inputHandling()) {
-            StockController.editStock(carReg, txtPrice.getText().trim(), txtDate.getText().trim());
+            StockController.editStock(carReg, txtPrice.getText().toUpperCase().trim(), txtDate.getText().toUpperCase().trim());
             StockController.saveStock();
             StockController.populateStockGUI(lstStock, true);
             dispose();

@@ -50,9 +50,9 @@ public class CustomerDetails extends JFrame {
     }
 
     public void openCheckout(String totalCost, String carReg, String returnDate) {
-        String license = txtLicense.getText().trim();
-        String name = txtName.getText().trim();
-        String address = txtAddress.getText().trim();
+        String license = txtLicense.getText().toUpperCase().trim();
+        String name = txtName.getText().toUpperCase().trim();
+        String address = txtAddress.getText().toUpperCase().trim();
 
         if (AccountsController.checkIfCustomerExists(license)) {
 

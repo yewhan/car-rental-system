@@ -118,9 +118,10 @@ public class StockController {
         for (Stock c : carList) {
             if (c.getRegistration().equalsIgnoreCase(carReg)) {
                 c.setPrice(Float.parseFloat(price));
-                if (!(date.isBlank())) {
+                if (!(date.isBlank()) && (!checkAvailability(carReg))) {
                     c.setAvailableDate(LocalDate.parse(date));
                 }
+                return;
             }
         }
     }
@@ -189,6 +190,7 @@ public class StockController {
             if (c.getRegistration().equalsIgnoreCase(carReg)) {
                 c.setAvailable(true);
                 c.setAvailableDate(null);
+                return;
             }
         }
     }
@@ -198,6 +200,7 @@ public class StockController {
             if (c.getRegistration().equalsIgnoreCase(carReg)) {
                 c.setAvailable(false);
                 c.setAvailableDate(LocalDate.parse(returnDate));
+                return;
             }
         }
     }

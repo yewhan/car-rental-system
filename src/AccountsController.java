@@ -99,7 +99,7 @@ public class AccountsController {
         String lName;
         String[] fullName;
 
-        fullName = name.trim().split("\\s+"); //trim leading/trailing whitespace then regex to split on whitespace
+        fullName = name.split("\\s+"); //trim leading/trailing whitespace then regex to split on whitespace
         fName = fullName[0];
         lName = fullName[fullName.length - 1];
 
