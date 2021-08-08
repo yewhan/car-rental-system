@@ -161,7 +161,7 @@ public class StockController {
         long difference;
         float price;
         for (Stock c : carList) {
-            if (c.getAvailable()) {
+//            if (c.getAvailable()) {
                 if (c.getRegistration().equalsIgnoreCase(reg)) {
                     difference = ChronoUnit.DAYS.between(LocalDate.now(), date);
                     price = (c.getPrice() * difference);
@@ -169,7 +169,7 @@ public class StockController {
                         return Float.toString(Float.parseFloat(df.format(price)));
                     }
                 }
-            }
+//            }
         }
         return "";
     }

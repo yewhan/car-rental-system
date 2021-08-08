@@ -3,11 +3,11 @@ import java.time.LocalDate;
 
 public class Threading {
 
-    private JTextArea threadingTxtTemp;
+    private JTextPane threadingTxtTemp;
     private String $license;
     private String $carReg;
 
-    public Threading (JTextArea receipt, String license, String carReg) {
+    public Threading (JTextPane receipt, String license, String carReg) {
 
         threadingTxtTemp = receipt;
         $license = license;
@@ -29,8 +29,8 @@ public class Threading {
                 LocalDate returnDate = LocalDate.parse(carDetails[4]);
                 String totalPrice = StockController.calculateTotalPrice($carReg, returnDate);
 
-                String receipt = String.format("Led's Car Hire\n%tF\n%s %s's ITEMS:\nModel: %s\nRegistration: %s\n" +
-                                "£%s per day\nDue to be returned on: %tF\nTotal price: £%s",
+                String receipt = String.format("Led's Car Hire\n%tF\n\n\n%s %s's ITEMS:\nModel: %s\nRegistration: %s\n" +
+                                "£%s per day\nDue to be returned on: %tF\n\nTotal price: £%s",
                         LocalDate.now(), name[0], name[1], carDetails[1], carDetails[2], carDetails[3], returnDate,
                         totalPrice);
 

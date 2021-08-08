@@ -48,11 +48,12 @@ public class ReturnCar extends JFrame {
                             StockController.setCarToAvailable(carReg);
 //                            StockController.loadCars();
                             StockController.saveStock();
-                            StockController.populateStockGUI(lstCars, true);
+                            StockController.populateStockGUI(lstCars, false);
                             AccountsController.removeCarFromCustomer(license, carReg);
 //                            AccountsController.loadCustomers();
                             AccountsController.saveCustomer();
                             AccountsController.clearCustomerList();
+                            dispose();
                         }
                         else {
                             JOptionPane.showMessageDialog(null, "This car has not been rented by this user");
