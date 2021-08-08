@@ -29,6 +29,7 @@ public class PaymentConfirmation extends JFrame {
             public void actionPerformed(ActionEvent e) {
                 printReceipt(license, carReg, returnDate);
                 checkout.dispose();
+                dispose();
             }
         });
     }
