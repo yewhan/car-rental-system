@@ -166,4 +166,16 @@ public class AccountsController {
     public static void clearCustomerList() {
         customersList = new ArrayList<CustomerAccounts>();
     }
+
+    public static String[] getCustomerName(String license) {
+        String[] $details = new String[2];
+        for (CustomerAccounts c : customersList) {
+            if (c.getLicenseNum().equalsIgnoreCase(license)) {
+                $details[0] = c.getfName();
+                $details[1] = c.getlName();
+                return $details;
+            }
+        }
+        return null;
+    }
 }

@@ -80,7 +80,7 @@ public class StockController {
                 JOptionPane.showMessageDialog(null, "There was an error trying to display vehicles in stock. Please contact system administrator");
             }
 
-            listModel.addElement($temp);
+            listModel.addElement($temp.toUpperCase());
             lstStock.setModel(listModel);
         }
     }

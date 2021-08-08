@@ -38,5 +38,8 @@ public class PaymentConfirmation extends JFrame {
         AccountsController.saveCustomer();
         StockController.setCarToUnavailable(carReg, returnDate);
         StockController.saveStock();
+
+        Receipt receipt = new Receipt(license, carReg);
+        receipt.setVisible(true);
     }
 }
