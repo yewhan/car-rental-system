@@ -38,19 +38,6 @@ public class StockController {
 
             }
             scanner.close();
-
-            //TODO: REMOVE BELOW WHEN DONE
-            for (Stock c : carList) { // Check to see if every object is being read in/ displayed correctly
-                if (c.getAvailable()) {
-                    System.out.println("available: " + c.getAvailable() + " | model: " + c.getModel()
-                            + " | registration: " + c.getRegistration() + " | price/ day: £" + c.getPrice());
-                } else {
-                    System.out.println("available: " + c.getAvailable() + " | model: " + c.getModel()
-                            + " | registration: " + c.getRegistration() + " | price/ day: £" + c.getPrice()
-                            + " | next available: " + c.getAvailableDate());
-                }
-            }
-
         } catch (FileNotFoundException e) {
             e.printStackTrace();
         }
