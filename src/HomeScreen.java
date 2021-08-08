@@ -9,7 +9,7 @@ public class HomeScreen extends JFrame {
     private JLabel lblChoice;
     private JButton btnCustomer;
     private JButton btnStaff;
-    private JFrame frameMain;
+    private final JFrame frameMain;
 
     public HomeScreen() {
         setContentPane(panelMain);
