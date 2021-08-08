@@ -7,8 +7,8 @@ public class AccountsController {
 
     private static final String $fileLoginPath = "resources\\admin.txt";
     private static final String $fileCustomerPath = "resources\\customer.txt";
-    private static List<StaffAccounts> staffList;
-    private static List<CustomerAccounts> customersList;
+    public static List<StaffAccounts> staffList;
+    public static List<CustomerAccounts> customersList;
 
     public static void loadStaff() {
         staffList = new ArrayList<StaffAccounts>(); //Store list of accounts for easy access to check against when logging in
