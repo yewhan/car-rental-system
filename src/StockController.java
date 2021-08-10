@@ -105,16 +105,17 @@ public class StockController {
         return false;
     }
 
-    public void editStock(String carReg, String price, String date) {
+    public boolean editStock(String carReg, String price, String date) {
         for (Stock c : carList) {
             if (c.getRegistration().equalsIgnoreCase(carReg)) { //if current car matches input car reg update car's price
                 c.setPrice(Float.parseFloat(price));
                 if (!(date.isBlank()) && (!checkAvailability(carReg))) { //if car is unavailable and the input date is not empty update the return date
                     c.setAvailableDate(LocalDate.parse(date));
                 }
-                return;
+                return true;
             }
         }
+        return false;
     }
 
     public void addStock(String model, String reg, String price) {

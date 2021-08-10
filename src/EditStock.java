@@ -38,10 +38,14 @@ public class EditStock extends JFrame {
 
     public void editCar(String carReg, JList<String> lstStock) {
         if (inputHandling()) { //check to see if all inputs are valid
-            CarHire.stock.editStock(carReg, txtPrice.getText().toUpperCase().trim(), txtDate.getText().toUpperCase().trim()); //pass inputs from txtboxes and designated car's reg
-            CarHire.stock.saveStock(); //save changes to database
-            CarHire.stock.populateStockGUI(lstStock, true); //reflect changes in GUI
-            dispose();
+            if (CarHire.stock.editStock(carReg, txtPrice.getText().toUpperCase().trim(), txtDate.getText().toUpperCase().trim())) { //pass inputs from txtboxes and designated car's reg
+                CarHire.stock.saveStock(); //save changes to database
+                CarHire.stock.populateStockGUI(lstStock, true); //reflect changes in GUI
+                dispose();
+            }
+            else {
+                JOptionPane.showMessageDialog(null, "Error trying to update car details");
+            }
         }
     }
 
