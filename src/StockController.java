@@ -54,7 +54,7 @@ public class StockController {
                         c.getAvailable(), c.getModel(), c.getRegistration(), c.getPrice());
                 if (!c.getAvailable()) { //if the car is not available, also display when it will be and what customer has rented it
                     $temp += String.format(" | next available: %tF | rented by: %s", c.getAvailableDate(),
-                            AccountsController.checkWhoHasCar(c.getRegistration()));
+                            CustomerController.checkWhoHasCar(c.getRegistration()));
                 }
             } else if (!accountType) { //check to see if user is customer
                 if (c.getAvailable()) { //only display available cars and their prices to customer

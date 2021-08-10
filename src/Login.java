@@ -9,17 +9,19 @@ public class Login extends JFrame {
     private JButton btnLogin;
     private JLabel lblPass;
     private JLabel lblUsername;
+    
+    private final StaffController staff = new StaffController();
 
     Login(JFrame homescreen) {
 
-        AccountsController.loadStaff(); //Initialising list of staff login details to check against
+        staff.loadStaff(); //Initialising list of staff login details to check against
 
         setContentPane(panelMain);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setPreferredSize(new Dimension(350, 250));
         pack();
 
-        btnLogin.addActionListener(e -> login(homescreen)); //using lambda for ActionListeners to improve readability
+        btnLogin.addActionListener(e -> login(homescreen)); //using lambda instead of ActionListeners to improve readability
 
         btnBack.addActionListener(e -> { //return to homescreen
             dispose();
@@ -28,7 +30,7 @@ public class Login extends JFrame {
     }
 
     public void login(JFrame homescreen) {
-        if (AccountsController.checkLogin(txtUsername.getText(), txtPass.getText())) { //if entered details match account, log in
+        if (staff.checkLogin(txtUsername.getText(), txtPass.getText())) { //if entered details match account, log in
             Admin admin = new Admin();
             admin.setVisible(true);
             homescreen.dispose();

@@ -14,7 +14,7 @@ public class CustomerDetails extends JFrame {
     private final JFrame frameMain;
 
     public CustomerDetails(JFrame customer, String totalCost, String carReg, String returnDate) {
-        AccountsController.loadCustomers();
+        CustomerController.loadCustomers();
         setContentPane(panelMain);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setPreferredSize(new Dimension(450, 450));
@@ -48,26 +48,26 @@ public class CustomerDetails extends JFrame {
 
         if (((name.split("\\s"))).length > 1) { //ensure at least first + last name is entered
 
-            if (AccountsController.checkIfCustomerExists(license)) { //check if customer is already in database
+            if (CustomerController.checkIfCustomerExists(license)) { //check if customer is already in database
 
-                if (!(AccountsController.editCustomer(name, address, license))) { //attempt to update customer's name and address with inputs
+                if (!(CustomerController.editCustomer(name, address, license))) { //attempt to update customer's name and address with inputs
                     JOptionPane.showMessageDialog(null, "There was an error while updating your details");
                     return;
                 }
 
-                if (AccountsController.checkIfCustomerHasCar(license) != null) { //if customer already has car rented inform them
+                if (CustomerController.checkIfCustomerHasCar(license) != null) { //if customer already has car rented inform them
 
                     JOptionPane.showMessageDialog(null, "Our records indicate you already have a car rented out with us.");
                     return;
                 }
             } else { //if customer doesn't exist, add add them
-                AccountsController.addCustomer(name, address, license);
+                CustomerController.addCustomer(name, address, license);
             }
         } else {
             JOptionPane.showMessageDialog(null, "Please ensure you've correctly filled out your name");
             return;
         }
-        AccountsController.saveCustomer(); //save new customer/ details
+        CustomerController.saveCustomer(); //save new customer/ details
         Checkout checkout = new Checkout(frameMain, license, totalCost, carReg, returnDate);
         this.setVisible(false);
         checkout.setVisible(true);

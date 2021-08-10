@@ -24,7 +24,7 @@ public class Threading {
             @Override
             protected Object doInBackground() throws Exception { //perform GUI interaction below in a background thread
 
-                String[] name = AccountsController.getCustomerName($license);
+                String[] name = CustomerController.getCustomerName($license);
                 String[] carDetails = CarHire.stock.getCarDetails($carReg);
                 LocalDate returnDate = LocalDate.parse(carDetails[4]);
                 String totalPrice = CarHire.stock.calculateTotalPrice($carReg, returnDate);

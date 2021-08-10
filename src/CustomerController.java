@@ -3,42 +3,11 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
-public class AccountsController {
+public class CustomerController {
 
-    private static final String $fileLoginPath = "resources\\admin.txt";
+
     private static final String $fileCustomerPath = "resources\\customer.txt";
-    public static List<StaffAccounts> staffList;
     public static List<CustomerAccounts> customersList;
-
-    public static void loadStaff() {
-        staffList = new ArrayList<StaffAccounts>(); //Store list of accounts for easy access to check against when logging in
-        try {
-
-            Scanner scanner = new Scanner(new File($fileLoginPath));
-            scanner.useDelimiter("[:\n]"); //Regex to break up username/password into new lines upon finding colon
-
-            while (scanner.hasNext()) { //While there are lines to read in admin.txt do below
-
-                StaffAccounts staff = new StaffAccounts(scanner.next().trim(), scanner.next().trim()); //Create new object for each account
-                staffList.add(staff); //Add account objects to array list
-            }
-            scanner.close();
-        } catch (IOException f) {
-            f.printStackTrace();
-        }
-    }
-
-    public static boolean checkLogin(String $username, String $password) {
-        boolean found = false;
-
-        for (StaffAccounts s : staffList) { //for every object in staff do below
-            if ($username.equals(s.getUsername()) && $password.equals(s.getPass())) { //Check if input login matches database
-                found = true;
-                break;
-            }
-        }
-        return found;
-    }
 
     public static void loadCustomers() {
         customersList = new ArrayList<CustomerAccounts>();

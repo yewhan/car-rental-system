@@ -23,7 +23,7 @@ public class Admin extends JFrame {
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setPreferredSize(new Dimension(900, 500));
         pack();
-        AccountsController.loadCustomers(); //Initialise list of customers to display who has rented what cars
+        CustomerController.loadCustomers(); //Initialise list of customers to display who has rented what cars
         CarHire.stock.loadCars(); //Initialise list of cars to display
         CarHire.stock.populateStockGUI(lstStock, true); //pass in JList, so it can be worked on, pass in true to tell method to display information meant for staff
         //Stock.overdueAlert(); // TODO: alert if car return is overdue
