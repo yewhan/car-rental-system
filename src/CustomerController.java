@@ -5,7 +5,6 @@ import java.util.Scanner;
 
 public class CustomerController {
 
-
     private static final String $fileCustomerPath = "resources\\customer.txt";
     public static List<CustomerAccounts> customersList;
 

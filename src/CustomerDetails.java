@@ -2,6 +2,7 @@ import javax.swing.*;
 import java.awt.*;
 
 public class CustomerDetails extends JFrame {
+    private final JFrame frameMain;
     private JPanel panelMain;
     private JTextField txtName;
     private JTextField txtAddress;
@@ -11,7 +12,6 @@ public class CustomerDetails extends JFrame {
     private JLabel lblName;
     private JLabel lblAddress;
     private JLabel lblLicense;
-    private final JFrame frameMain;
 
     public CustomerDetails(JFrame customer, String totalCost, String carReg, String returnDate) {
         CustomerController.loadCustomers();

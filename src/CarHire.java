@@ -9,6 +9,8 @@ import java.time.format.DateTimeParseException;
 import java.time.temporal.ChronoUnit;
 
 public class CarHire extends JFrame {
+    public static StockController stock = new StockController();
+    private final JFrame frameMain;
     private JPanel panelMain;
     private JList<String> lstCars;
     private JTextField txtCarReg;
@@ -21,9 +23,6 @@ public class CarHire extends JFrame {
     private JLabel lblTotalPrice;
     private JButton btnBack;
     private JButton btnReturnCar;
-    private final JFrame frameMain;
-
-    public static StockController stock = new StockController();
 
     public CarHire() {
         setContentPane(panelMain);

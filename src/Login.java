@@ -2,6 +2,7 @@ import javax.swing.*;
 import java.awt.*;
 
 public class Login extends JFrame {
+    private final StaffController staff = new StaffController();
     private JPanel panelMain;
     private JTextField txtPass;
     private JTextField txtUsername;
@@ -9,8 +10,6 @@ public class Login extends JFrame {
     private JButton btnLogin;
     private JLabel lblPass;
     private JLabel lblUsername;
-    
-    private final StaffController staff = new StaffController();
 
     Login(JFrame homescreen) {
 

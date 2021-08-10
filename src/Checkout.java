@@ -3,12 +3,12 @@ import java.awt.*;
 
 public class Checkout extends JFrame {
 
+    private final JFrame frameMain;
     private JPanel panelMain;
     private JLabel lblBalance;
     private JLabel lblPrice;
     private JButton btnBack;
     private JButton btnPay;
-    private final JFrame frameMain;
 
     public Checkout(JFrame customerDetails, String license, String totalCost, String carReg, String returnDate) {
         lblPrice.setText(totalCost); //display total cost to user
