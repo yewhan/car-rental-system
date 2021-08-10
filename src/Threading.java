@@ -14,10 +14,10 @@ public class Threading {
         $carReg = carReg;
 
 
-        DefaultLoader();
+        PrintReceipt();
     }
 
-    private void DefaultLoader() {
+    private void PrintReceipt() {
 
         new SwingWorker<Object, Object>() {
 
@@ -25,9 +25,9 @@ public class Threading {
             protected Object doInBackground() throws Exception { //perform GUI interaction below in a background thread
 
                 String[] name = AccountsController.getCustomerName($license);
-                String[] carDetails = StockController.getCarDetails($carReg);
+                String[] carDetails = CarHire.stock.getCarDetails($carReg);
                 LocalDate returnDate = LocalDate.parse(carDetails[4]);
-                String totalPrice = StockController.calculateTotalPrice($carReg, returnDate);
+                String totalPrice = CarHire.stock.calculateTotalPrice($carReg, returnDate);
 
                 String receipt = String.format("Led's Car Hire\n%tF\n\n\n%s %s's ITEMS:\nModel: %s\nRegistration: %s\n" +
                                 "£%s per day\nDue to be returned on: %tF\n\nTotal price: £%s",

@@ -29,8 +29,8 @@ public class PaymentConfirmation extends JFrame {
     public static void printReceipt(String license, String carReg, String returnDate) {
         AccountsController.addCarToCustomer(license, carReg); //add car reg to customer's account
         AccountsController.saveCustomer(); //update customer database
-        StockController.setCarToUnavailable(carReg, returnDate); //set bought car to unavailable and add new return date
-        StockController.saveStock(); //update car database
+        CarHire.stock.setCarToUnavailable(carReg, returnDate); //set bought car to unavailable and add new return date
+        CarHire.stock.saveStock(); //update car database
 
         Receipt receipt = new Receipt(license, carReg);
         receipt.setVisible(true);

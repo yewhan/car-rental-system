@@ -27,10 +27,10 @@ public class AddStock extends JFrame {
         if (txtModel.getText().isBlank() || txtReg.getText().isBlank() || txtPrice.getText().isBlank()) { //Check to make sure all the fields are correctly filled out
             JOptionPane.showMessageDialog(null, "Please ensure all fields are filled out.");
         } else {
-            StockController.addStock(txtModel.getText().toUpperCase(), txtReg.getText().toUpperCase(),
+            CarHire.stock.addStock(txtModel.getText().toUpperCase(), txtReg.getText().toUpperCase(),
                     txtPrice.getText().toUpperCase());
-            StockController.saveStock();
-            StockController.populateStockGUI(lstStock, true); //add the car to the database, reflect changes in GUI then close window
+            CarHire.stock.saveStock();
+            CarHire.stock.populateStockGUI(lstStock, true); //add the car to the database, reflect changes in GUI then close window
             dispose();
         }
     }

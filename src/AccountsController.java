@@ -129,7 +129,7 @@ public class AccountsController {
 
     public static void saveCustomer() {
         try {
-            FileWriter fw = new FileWriter(new File($fileCustomerPath));
+            FileWriter fw = new FileWriter($fileCustomerPath);
             BufferedWriter bw = new BufferedWriter(fw);
             for (CustomerAccounts c : customersList) {
                 String $temp = String.format("%s:%s:%s:%s:", c.getfName(), c.getlName(), c.getAddress(),

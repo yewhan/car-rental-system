@@ -16,14 +16,16 @@ public class Admin extends JFrame {
     private JButton btnRemove;
     private JButton btnBack;
 
+//    private AdminController admin = new Admin();
+
     public Admin() {
         setContentPane(panelMain);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setPreferredSize(new Dimension(900, 500));
         pack();
         AccountsController.loadCustomers(); //Initialise list of customers to display who has rented what cars
-        StockController.loadCars(); //Initialise list of cars to display
-        StockController.populateStockGUI(lstStock, true); //pass in JList, so it can be worked on, pass in true to tell method to display information meant for staff
+        CarHire.stock.loadCars(); //Initialise list of cars to display
+        CarHire.stock.populateStockGUI(lstStock, true); //pass in JList, so it can be worked on, pass in true to tell method to display information meant for staff
         //Stock.overdueAlert(); // TODO: alert if car return is overdue
 
         btnBack.addActionListener(e -> openHomescreen());
@@ -42,7 +44,7 @@ public class Admin extends JFrame {
     }
 
     public void openEditWindow() {
-        if (StockController.checkReg(txtCarReg.getText().trim())) { //if input registration plate matches a car in our system, open edit stock window
+        if (CarHire.stock.checkReg(txtCarReg.getText().trim())) { //if input registration plate matches a car in our system, open edit stock window
             EditStock editStock = new EditStock(txtCarReg.getText().trim(), lstStock);
             editStock.setVisible(true);
         } else {
@@ -56,8 +58,8 @@ public class Admin extends JFrame {
     }
 
     public void remove() { //Remove car from system, then remove it from database and finally reflect changes on GUI
-        StockController.removeStock(txtCarReg.getText());
-        StockController.saveStock();
-        StockController.populateStockGUI(lstStock, true);
+        CarHire.stock.removeStock(txtCarReg.getText());
+        CarHire.stock.saveStock();
+        CarHire.stock.populateStockGUI(lstStock, true);
     }
 }

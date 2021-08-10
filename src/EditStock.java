@@ -27,7 +27,7 @@ public class EditStock extends JFrame {
     }
 
     public void fillTextFields(String carReg) {
-        car = StockController.getCarDetails(carReg); //fill string array with car details
+        car = CarHire.stock.getCarDetails(carReg); //fill string array with car details
         if (car.length > 0) { //if the string array has been filled out, populate text fields with car's original details
             txtPrice.setText(car[3]);
             txtDate.setText(car[4]);
@@ -38,9 +38,9 @@ public class EditStock extends JFrame {
 
     public void editCar(String carReg, JList<String> lstStock) {
         if (inputHandling()) { //check to see if all inputs are valid
-            StockController.editStock(carReg, txtPrice.getText().toUpperCase().trim(), txtDate.getText().toUpperCase().trim()); //pass inputs from txtboxes and designated car's reg
-            StockController.saveStock(); //save changes to database
-            StockController.populateStockGUI(lstStock, true); //reflect changes in GUI
+            CarHire.stock.editStock(carReg, txtPrice.getText().toUpperCase().trim(), txtDate.getText().toUpperCase().trim()); //pass inputs from txtboxes and designated car's reg
+            CarHire.stock.saveStock(); //save changes to database
+            CarHire.stock.populateStockGUI(lstStock, true); //reflect changes in GUI
             dispose();
         }
     }

@@ -23,18 +23,20 @@ public class CarHire extends JFrame {
     private JButton btnReturnCar;
     private final JFrame frameMain;
 
+    public static StockController stock = new StockController();
+
     public CarHire() {
         setContentPane(panelMain);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setPreferredSize(new Dimension(750, 500));
         pack();
         btnCheckout.setEnabled(false); //disable checkout button until conditions are met
-        StockController.loadCars(); //load a list of cars to be displayed
-        StockController.populateStockGUI(lstCars, false); //update display with only information that customers should see, of available cars
+        stock.loadCars(); //load a list of cars to be displayed
+        stock.populateStockGUI(lstCars, false); //update display with only information that customers should see, of available cars
         frameMain = this; //save window, so it can be returned to via back button later
 
         btnBack.addActionListener(e -> { //return to homescreen
-            StockController.clearCarList();
+            stock.clearCarList();
             dispose();
             HomeScreen homescreen = new HomeScreen();
             homescreen.setVisible(true);
@@ -100,13 +102,13 @@ public class CarHire extends JFrame {
         String date = txtDate.getText().trim();
 
         if (!(date.isBlank()) || !(carReg.isBlank())) { //check to see if either text box is empty
-            if (StockController.checkReg(carReg)) { //check to see if the txtCarReg matches one on database
-                if (StockController.checkAvailability(carReg)) { //check to see if car is available
+            if (stock.checkReg(carReg)) { //check to see if the txtCarReg matches one on database
+                if (stock.checkAvailability(carReg)) { //check to see if car is available
                     try {
                         LocalDate $date = LocalDate.parse(date); //check to see if txtDate is valid format
                         long difference = ChronoUnit.DAYS.between(LocalDate.now(), $date);
                         if (difference > 0) { //make sure the date entered is after today's date
-                            lblTotalPrice.setText(StockController.calculateTotalPrice(carReg, $date)); //display the total cost for hiring the car
+                            lblTotalPrice.setText(stock.calculateTotalPrice(carReg, $date)); //display the total cost for hiring the car
                             btnCheckout.setEnabled(true); //allow the user to enter checkout
                             return;
                         }

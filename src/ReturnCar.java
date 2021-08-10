@@ -39,15 +39,15 @@ public class ReturnCar extends JFrame {
         String license = txtLicense.getText().trim();
 
         if (!(carReg.isEmpty()) && !(license.isEmpty())) { //check to see if inputs have been filled out
-            if (StockController.checkReg(carReg)) { //check to see if car reg matches one in database
-                if (!(StockController.checkAvailability(carReg))) { //make sure car is unavailable
+            if (CarHire.stock.checkReg(carReg)) { //check to see if car reg matches one in database
+                if (!(CarHire.stock.checkAvailability(carReg))) { //make sure car is unavailable
                     AccountsController.loadCustomers(); //load a list of customers to check against
                     if (AccountsController.checkIfCustomerExists(license)) { //make sure customer entry exists in database
                         String $carReg = AccountsController.checkIfCustomerHasCar(license); //check if customer has outstanding car, if they do add to $carReg
                         if ($carReg != null && $carReg.equalsIgnoreCase(carReg)) { //if a car reg was returned, and car reg matches input car reg
-                            StockController.setCarToAvailable(carReg); //make car available
-                            StockController.saveStock(); //store car to database
-                            StockController.populateStockGUI(lstCars, false); //reflect changes on customer's GUI
+                            CarHire.stock.setCarToAvailable(carReg); //make car available
+                            CarHire.stock.saveStock(); //store car to database
+                            CarHire.stock.populateStockGUI(lstCars, false); //reflect changes on customer's GUI
                             AccountsController.removeCarFromCustomer(license, carReg); //remove the outstanding car from customer's account
                             AccountsController.saveCustomer(); //store customer to database
                             AccountsController.clearCustomerList(); //empty list of customers

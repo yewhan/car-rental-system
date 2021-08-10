@@ -10,9 +10,9 @@ import java.util.Scanner;
 public class StockController {
 
     private static final String $fileCarsPath = "resources\\cars.txt";
-    public static List<Stock> carList;
+    public List<Stock> carList;
 
-    public static void loadCars() {
+    public void loadCars() {
 
         carList = new ArrayList<Stock>();
         try {
@@ -43,7 +43,7 @@ public class StockController {
         }
     }
 
-    public static void populateStockGUI(JList<String> lstStock, boolean accountType) {
+    public void populateStockGUI(JList<String> lstStock, boolean accountType) {
 
         DefaultListModel<String> listModel = new DefaultListModel<String>();
         String $temp = null;
@@ -72,7 +72,7 @@ public class StockController {
         }
     }
 
-    public static String[] getCarDetails(String carReg) {
+    public String[] getCarDetails(String carReg) {
         String[] $arr = new String[5];
         for (Stock c : carList) {
             if (c.getRegistration().equals(carReg)) { //if registration matches one in car database, populate string array with car details
@@ -91,7 +91,7 @@ public class StockController {
         return $arr; //return empty array on failure
     }
 
-    public static boolean checkReg(String carReg) {
+    public boolean checkReg(String carReg) {
         for (Stock c : carList) {
             if (c.getRegistration().equalsIgnoreCase(carReg)) {
 
@@ -101,7 +101,7 @@ public class StockController {
         return false;
     }
 
-    public static void editStock(String carReg, String price, String date) {
+    public void editStock(String carReg, String price, String date) {
         for (Stock c : carList) {
             if (c.getRegistration().equalsIgnoreCase(carReg)) { //if current car matches input car reg update car's price
                 c.setPrice(Float.parseFloat(price));
@@ -113,13 +113,13 @@ public class StockController {
         }
     }
 
-    public static void addStock(String model, String reg, String price) {
+    public void addStock(String model, String reg, String price) {
 
         Stock newCar = new Stock(true, model, reg, Float.parseFloat(price));
         carList.add(newCar); //create new car object and add it into list of cars
     }
 
-    public static void saveStock() {
+    public void saveStock() {
         try {
             FileWriter fw = new FileWriter($fileCarsPath);
             BufferedWriter bw = new BufferedWriter(fw);
@@ -139,11 +139,11 @@ public class StockController {
         }
     }
 
-    public static void removeStock(String reg) {
+    public void removeStock(String reg) {
         carList.removeIf(c -> c.getRegistration().equalsIgnoreCase(reg)); //if car registration plate matches one in our system, remove it from the system
     }
 
-    public static String calculateTotalPrice(String reg, LocalDate date) {
+    public String calculateTotalPrice(String reg, LocalDate date) {
         DecimalFormat df = new DecimalFormat("0.00"); //ensure total price is in the correct format
         long difference;
         float price;
@@ -161,7 +161,7 @@ public class StockController {
         return "";
     }
 
-    public static boolean checkAvailability(String carReg) {
+    public boolean checkAvailability(String carReg) {
         for (Stock c : carList) {
             if (c.getRegistration().equalsIgnoreCase(carReg)) { //if current car matches input car reg, check to see if it's available
                 if (c.getAvailable()) {
@@ -172,7 +172,7 @@ public class StockController {
         return false;
     }
 
-    public static void setCarToAvailable(String carReg) {
+    public void setCarToAvailable(String carReg) {
         for (Stock c : carList) {
             if (c.getRegistration().equalsIgnoreCase(carReg)) { //if input car reg matches current car, remove it's return data and set it to available
                 c.setAvailable(true);
@@ -182,7 +182,7 @@ public class StockController {
         }
     }
 
-    public static void setCarToUnavailable(String carReg, String returnDate) {
+    public void setCarToUnavailable(String carReg, String returnDate) {
         for (Stock c : carList) {
             if (c.getRegistration().equalsIgnoreCase(carReg)) { //if input car reg matches current car, set it to unavailable and set its return date to input return date
                 c.setAvailable(false);
@@ -192,7 +192,7 @@ public class StockController {
         }
     }
 
-    public static void clearCarList() {
+    public void clearCarList() {
         carList = new ArrayList<Stock>();
     }
 }

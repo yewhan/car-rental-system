@@ -7,34 +7,35 @@ import java.util.ArrayList;
 import static org.junit.jupiter.api.Assertions.*;
 
 class StockControllerTest {
+    StockController stock = new StockController();
 
     @BeforeEach
     void setUp() {
         Stock car1 = new Stock(true, "test", "123", 15.50F);
         Stock car2 = new Stock(false, "test2", "1234", 20.00f, LocalDate.of(2030, 1, 1));
 
-        StockController.carList = new ArrayList<>();
+        stock.carList = new ArrayList<>();
 
-        StockController.carList.add(car1);
+        stock.carList.add(car1);
     }
 
     @Test
     void getCarDetails() {
-        assertTrue(StockController.getCarDetails("123").length > 0);
+        assertTrue(stock.getCarDetails("123").length > 0);
     }
 
     @Test
     void checkReg() {
-        assertTrue(StockController.checkReg("123"));
+        assertTrue(stock.checkReg("123"));
     }
 
     @Test
     void calculateTotalPrice() {
-        assertTrue(StockController.calculateTotalPrice("123", (LocalDate.now())).isBlank());
+        assertTrue(stock.calculateTotalPrice("123", (LocalDate.now())).isBlank());
     }
 
     @Test
     void checkAvailability() {
-        assertFalse(StockController.checkAvailability("1234"));
+        assertFalse(stock.checkAvailability("1234"));
     }
 }
