@@ -1,13 +1,12 @@
 public class StaffAccounts {
 
     private final String username;
-    private final String password;
-    private String passHash;
+    private final String passHash;
 
     public StaffAccounts(String $uname, String $hash) {
 
         this.username = $uname;
-        this.password = $hash;
+        this.passHash = $hash;
     }
 
     public String getUsername() {
@@ -15,6 +14,6 @@ public class StaffAccounts {
     }
 
     public String getPass() {
-        return password;
+        return passHash;
     }
 }

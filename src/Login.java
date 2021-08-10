@@ -29,7 +29,7 @@ public class Login extends JFrame {
     }
 
     public void login(JFrame homescreen) {
-        if (staff.checkLogin(txtUsername.getText(), txtPass.getText())) { //if entered details match account, log in
+        if (staff.checkLogin(txtUsername.getText(), staff.hash(txtPass.getText().trim()))) { //if entered details match account, log in
             Admin admin = new Admin();
             admin.setVisible(true);
             homescreen.dispose();
