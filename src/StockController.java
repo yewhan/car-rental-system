@@ -46,20 +46,24 @@ public class StockController {
     public void populateStockGUI(JList<String> lstStock, boolean accountType) {
 
         DefaultListModel<String> listModel = new DefaultListModel<String>();
-        String $temp = null;
         for (Stock c : carList) {
+            StringBuilder $temp = new StringBuilder(); //using a stringbuilder inside loop for memory usage optimization
 
             if (accountType) { //if the user calling the method is an admin, display information only admins should have access to
-                $temp = String.format("available: %b | model: %s | registration: %s | price/ day: £%.2f",
-                        c.getAvailable(), c.getModel(), c.getRegistration(), c.getPrice());
+
+                $temp.append("available: ").append(c.getAvailable()).append(" | model: ").append(c.getModel())
+                        .append(" | registration: ").append(c.getRegistration()).append(" | price/ day: £")
+                        .append(c.getPrice());
                 if (!c.getAvailable()) { //if the car is not available, also display when it will be and what customer has rented it
-                    $temp += String.format(" | next available: %tF | rented by: %s", c.getAvailableDate(),
-                            CustomerController.checkWhoHasCar(c.getRegistration()));
+
+                    $temp.append(" | next available: ").append(c.getAvailableDate()).append(" | rented by: ")
+                            .append(CustomerController.checkWhoHasCar(c.getRegistration()));
                 }
             } else if (!accountType) { //check to see if user is customer
                 if (c.getAvailable()) { //only display available cars and their prices to customer
-                    $temp = String.format("model: %s | registration: %s | price per day: £%.2f",
-                            c.getModel(), c.getRegistration(), c.getPrice());
+
+                    $temp.append("model: ").append(c.getModel()).append(" | registration: ").append(c.getRegistration())
+                            .append(" | price per day: £").append(c.getPrice());
                 } else {
                     continue; //if car unavailable, go to next object in list as customers should only see available cars
                 }
@@ -67,7 +71,7 @@ public class StockController {
                 JOptionPane.showMessageDialog(null, "There was an error trying to display vehicles in stock. Please contact system administrator");
             }
 
-            listModel.addElement($temp.toUpperCase());
+            listModel.addElement($temp.toString().toUpperCase());
             lstStock.setModel(listModel); //add the current car's details to the list passed into the method
         }
     }
@@ -124,13 +128,16 @@ public class StockController {
             FileWriter fw = new FileWriter($fileCarsPath);
             BufferedWriter bw = new BufferedWriter(fw);
             for (Stock c : carList) {
-                String $temp = String.format("%b:%s:%s:%.2f:", c.getAvailable(), c.getModel(), c.getRegistration(), c.getPrice());
+                StringBuilder $temp = new StringBuilder(); //using a stringbuilder inside loop for memory usage optimization
+
+                $temp.append(c.getAvailable()).append(":").append(c.getModel()).append(":").append(c.getRegistration())
+                        .append(":").append(c.getPrice()).append(":");
                 if (!c.getAvailable()) {
-                    $temp += String.format("%tF\n", c.getAvailableDate()); //if car is rented out, append the return date to the string
+                    $temp.append(c.getAvailableDate()).append("\n");
                 } else {
-                    $temp += "0\n"; //if car isn't rented out, append 0
+                    $temp.append("0\n");
                 }
-                bw.write($temp); //write the details of the current car in the loop, to cars.txt
+                bw.write($temp.toString().toUpperCase()); //write the details of the current car in the loop, to cars.txt
             }
             bw.close();
 
