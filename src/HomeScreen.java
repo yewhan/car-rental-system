@@ -27,13 +27,13 @@ public class HomeScreen extends JFrame {
         homescreen.setVisible(true);
     }
 
-    private void openLogin() { //open login screen
+    public void openLogin() { //open login screen
         Login admin = new Login(frameMain);
         this.setVisible(false);
         admin.setVisible(true);
     }
 
-    private void openCarHire() { //open customer's GUI
+    public void openCarHire() { //open customer's GUI
         CarHire carHire = new CarHire();
         carHire.setVisible(true);
         dispose();
