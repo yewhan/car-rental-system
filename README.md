@@ -9,4 +9,4 @@ test3:12345\
 yewhan:password123
 
 
-## Jar found at [/releases/download/1.0/COMP2000_Referral.jar](https://github.com/yewhan/COMP2000_Referral/releases/download/1.0/COMP2000_Referral.jar)
+## Jar found at [https://github.com/yewhan/COMP2000_Referral/releases/latest](https://github.com/yewhan/COMP2000_Referral/releases/latest)
