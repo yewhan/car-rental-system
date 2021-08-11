@@ -39,15 +39,15 @@ public class ReturnCar extends JFrame {
         String license = txtLicense.getText().trim();
 
         if (!(carReg.isEmpty()) && !(license.isEmpty())) { //check to see if inputs have been filled out
-            if (CarHire.stock.checkReg(carReg)) { //check to see if car reg matches one in database
-                if (!(CarHire.stock.checkAvailability(carReg))) { //make sure car is unavailable
+            if (HomeScreen.stock.checkReg(carReg)) { //check to see if car reg matches one in database
+                if (!(HomeScreen.stock.checkAvailability(carReg))) { //make sure car is unavailable
                     CustomerController.loadCustomers(); //load a list of customers to check against
                     if (CustomerController.checkIfCustomerExists(license)) { //make sure customer entry exists in database
                         String $carReg = CustomerController.checkIfCustomerHasCar(license); //check if customer has outstanding car, if they do add to $carReg
                         if ($carReg != null && $carReg.equalsIgnoreCase(carReg)) { //if a car reg was returned, and car reg matches input car reg
-                            CarHire.stock.setCarToAvailable(carReg); //make car available
-                            CarHire.stock.saveStock(); //store car to database
-                            CarHire.stock.populateStockGUI(lstCars, false); //reflect changes on customer's GUI
+                            HomeScreen.stock.setCarToAvailable(carReg); //make car available
+                            HomeScreen.stock.saveStock(); //store car to database
+                            HomeScreen.stock.populateStockGUI(lstCars, false); //reflect changes on customer's GUI
                             CustomerController.removeCarFromCustomer(license, carReg); //remove the outstanding car from customer's account
                             CustomerController.saveCustomer(); //store customer to database
                             CustomerController.clearCustomerList(); //empty list of customers

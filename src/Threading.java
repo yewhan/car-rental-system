@@ -25,9 +25,9 @@ public class Threading {
             protected Object doInBackground() throws Exception { //perform GUI interaction below in a background thread
 
                 String[] name = CustomerController.getCustomerName($license);
-                String[] carDetails = CarHire.stock.getCarDetails($carReg);
+                String[] carDetails = HomeScreen.stock.getCarDetails($carReg);
                 LocalDate returnDate = LocalDate.parse(carDetails[4]);
-                String totalPrice = CarHire.stock.calculateTotalPrice($carReg, returnDate);
+                String totalPrice = HomeScreen.stock.calculateTotalPrice($carReg, returnDate);
 
                 String receipt = String.format("Led's Car Hire\n%tF\n\n\n%s %s's ITEMS:\nModel: %s\nRegistration: %s\n" +
                                 "£%s per day\nDue to be returned on: %tF\n\nTotal price: £%s",

@@ -3,6 +3,7 @@ import java.awt.*;
 
 
 public class HomeScreen extends JFrame {
+    public static StockController stock = new StockController();
     private final JFrame frameMain;
     private JPanel panelMain;
     private JLabel lblChoice;
