@@ -17,7 +17,9 @@
         <children>
           <component id="d146f" class="javax.swing.JTextPane" binding="txtReceipt">
             <constraints/>
-            <properties/>
+            <properties>
+              <editable value="false"/>
+            </properties>
           </component>
         </children>
       </scrollpane>

@@ -79,7 +79,7 @@ public class StockController {
     public String[] getCarDetails(String carReg) {
         String[] $arr = new String[5];
         for (Stock c : carList) {
-            if (c.getRegistration().equals(carReg)) { //if registration matches one in car database, populate string array with car details
+            if (c.getRegistration().equalsIgnoreCase(carReg)) { //if registration matches one in car database, populate string array with car details
                 $arr[0] = c.getAvailable().toString();
                 $arr[1] = c.getModel();
                 $arr[2] = c.getRegistration();
