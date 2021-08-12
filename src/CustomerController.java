@@ -67,12 +67,12 @@ public class CustomerController {
         String lName;
         String[] fullName;
 
-        fullName = name.split("\\s+");
-        fName = fullName[0];
-        lName = fullName[fullName.length - 1];
+        fullName = name.split("\\s+"); //split the name on whitespaces
+        fName = fullName[0]; //take first entry as first name
+        lName = fullName[fullName.length - 1]; //take last entry as last name
 
         CustomerAccounts customer = new CustomerAccounts(fName, lName, address, license);
-        customersList.add(customer);
+        customersList.add(customer); //create new customer and add customer to customersList
     }
 
     public static boolean editCustomer(String name, String address, String license) {
@@ -95,19 +95,20 @@ public class CustomerController {
         return false;
     }
 
-    public static void saveCustomer() {
+    public static void saveCustomer() { //update text file database with updated customersList
         try {
             FileWriter fw = new FileWriter($fileCustomerPath);
             BufferedWriter bw = new BufferedWriter(fw);
             for (CustomerAccounts c : customersList) {
-                String $temp = String.format("%s:%s:%s:%s:", c.getfName(), c.getlName(), c.getAddress(),
-                        c.getLicenseNum());
+                StringBuilder sb = new StringBuilder(); //using StringBuilder in loop for memory usage optimization
+                sb.append(c.getfName()).append(":").append(c.getlName()).append(":").append(c.getAddress())
+                        .append(":").append(c.getLicenseNum()).append(":");
                 if (c.getCarReg() == null) {
-                    $temp += "0\n";
+                    sb.append("0\n");
                 } else {
-                    $temp += String.format("%s\n", c.getCarReg());
+                    sb.append(c.getCarReg()).append("\n");
                 }
-                bw.write($temp);
+                bw.write(sb.toString().toUpperCase());
             }
             bw.close();
         } catch (IOException e) {
@@ -117,7 +118,7 @@ public class CustomerController {
 
     public static void addCarToCustomer(String license, String carReg) {
         for (CustomerAccounts c : customersList) {
-            if (c.getLicenseNum().equalsIgnoreCase(license)) {
+            if (c.getLicenseNum().equalsIgnoreCase(license)) { //append car's license plate to customer account
                 c.setCarReg(carReg);
             }
         }

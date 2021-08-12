@@ -28,7 +28,7 @@ public class StockController {
                 Stock car = new Stock(Boolean.parseBoolean($arr[0].trim()), $arr[1], $arr[2].trim(),
                         Float.parseFloat($arr[3].trim()));
 
-                if ($arr[0].equals("false")) {
+                if ($arr[0].equalsIgnoreCase("false")) {
 
                     LocalDate $date = LocalDate.parse($arr[4].trim());
 
